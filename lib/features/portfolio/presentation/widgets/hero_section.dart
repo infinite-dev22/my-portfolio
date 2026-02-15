@@ -192,7 +192,7 @@ class _HeroSectionState extends State<HeroSection> {
             const SizedBox(width: 24),
             OutlinedButton.icon(
               iconAlignment: IconAlignment.end,
-              onPressed: () => downloadFile('documents/JONATHAN_MARK_MWIGO_RESUME.pdf'),
+              onPressed: () => downloadFile('assets/documents/JONATHAN_MARK_MWIGO_RESUME.pdf'),
               icon: Icon(MingCute.download_2_line, size: 18),
               label: Text(
                 "Download Resume",

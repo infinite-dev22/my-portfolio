@@ -99,7 +99,7 @@ class _NavBarState extends State<NavBar> {
             )
           else
             FilledButton(
-              onPressed: () => downloadFile('documents/JONATHAN_MARK_MWIGO_RESUME.pdf'),
+              onPressed: () => downloadFile('assets/documents/JONATHAN_MARK_MWIGO_RESUME.pdf'),
               child: Text("Resume.pdf", style: GoogleFonts.jetBrainsMono()),
             ),
         ],
