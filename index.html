@@ -32,15 +32,31 @@
       align-items: center;
       justify-content: center;
       z-index: 9999;
+      overflow: hidden;
+    }
+
+    /* scanline effect */
+    #boot-loader::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.02),
+        rgba(255,255,255,0.02) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      pointer-events: none;
     }
 
     .boot-container {
-      width: min(720px, 94%);
+      width: min(760px, 95%);
     }
 
     .boot-title {
       color: #38bdf8;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       letter-spacing: 2px;
       font-size: 14px;
     }
@@ -56,20 +72,10 @@
     .boot-log {
       font-size: 13px;
       line-height: 1.6;
-      min-height: 200px;
+      min-height: 220px;
     }
 
-    .boot-line {
-      white-space: pre;
-    }
-
-    .cursor {
-      display: inline-block;
-      width: 8px;
-      background: #38bdf8;
-      margin-left: 4px;
-      animation: blink 1s steps(2, start) infinite;
-    }
+    .boot-line { white-space: pre; }
 
     .reliability { color: #22c55e; font-weight: 600; }
     .nominal { color: #22c55e; font-weight: 700; }
@@ -77,7 +83,7 @@
     .error { color: #f97316; }
 
     .boot-progress {
-      margin-top: 18px;
+      margin-top: 14px;
       height: 6px;
       background: #1e293b;
       border-radius: 4px;
@@ -89,6 +95,49 @@
       width: 0%;
       background: linear-gradient(90deg, #38bdf8, #f97316);
       transition: width 0.2s ease;
+    }
+
+    .telemetry {
+      margin-top: 14px;
+      font-size: 12px;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .meter {
+      background: #020617;
+      border: 1px solid #1e293b;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .meter-bar {
+      height: 4px;
+      background: #1e293b;
+      margin-top: 4px;
+      overflow: hidden;
+      border-radius: 2px;
+    }
+
+    .meter-fill {
+      height: 100%;
+      width: 0%;
+      background: #38bdf8;
+      transition: width 0.2s ease;
+    }
+
+    .disk {
+      display: inline-block;
+      margin-left: 6px;
+      color: #38bdf8;
+      animation: blink 0.8s steps(2, start) infinite;
+    }
+
+    .boot-time {
+      margin-top: 10px;
+      font-size: 12px;
+      color: #22c55e;
     }
 
     .fade-out {
@@ -123,10 +172,29 @@
       <div class="boot-progress">
         <div class="boot-bar" id="boot-bar"></div>
       </div>
+
+      <div class="telemetry">
+        <div class="meter">
+          CPU
+          <div class="meter-bar"><div class="meter-fill" id="cpu"></div></div>
+        </div>
+        <div class="meter">
+          MEM
+          <div class="meter-bar"><div class="meter-fill" id="mem"></div></div>
+        </div>
+        <div class="meter">
+          NET
+          <div class="meter-bar"><div class="meter-fill" id="net"></div></div>
+        </div>
+      </div>
+
+      <div class="boot-time" id="boot-time"></div>
     </div>
   </div>
 
   <script>
+    const start = performance.now();
+
     const lines = [
       "[ INIT ] Nomard Core Runtime v3.2",
       "[ OK   ] JVM high-throughput engine",
@@ -161,7 +229,6 @@
       }
 
       currentLineEl.textContent = text.substring(0, charIndex);
-
       charIndex++;
 
       if (charIndex <= text.length) {
@@ -187,15 +254,29 @@
 
     typeChar();
 
-    // Blinking cursor
-    const cursor = document.createElement("span");
-    cursor.className = "cursor";
-    document.querySelector(".boot-container").appendChild(cursor);
+    // telemetry animation
+    function animateMeters() {
+      document.getElementById("cpu").style.width = (20 + Math.random()*60) + "%";
+      document.getElementById("mem").style.width = (30 + Math.random()*50) + "%";
+      document.getElementById("net").style.width = (10 + Math.random()*80) + "%";
+    }
+    setInterval(animateMeters, 300);
 
+    // disk activity indicator
+    const disk = document.createElement("span");
+    disk.textContent = "●";
+    disk.className = "disk";
+    document.querySelector(".boot-title").appendChild(disk);
+
+    // boot time
     window.addEventListener("flutter-first-frame", function () {
+      const end = performance.now();
+      document.getElementById("boot-time").textContent =
+        "Boot time: " + ((end - start) / 1000).toFixed(2) + "s";
+
       const loader = document.getElementById("boot-loader");
       loader.classList.add("fade-out");
-      setTimeout(() => loader.remove(), 500);
+      setTimeout(() => loader.remove(), 600);
     });
   </script>
 
