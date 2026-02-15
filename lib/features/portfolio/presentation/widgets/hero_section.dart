@@ -7,6 +7,7 @@ import 'package:syntax_highlight/syntax_highlight.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../../core/utils/file_downloader.dart';
 import '../../domain/entities/portfolio_entities.dart';
 
 class HeroSection extends StatefulWidget {
@@ -191,7 +192,7 @@ class _HeroSectionState extends State<HeroSection> {
             const SizedBox(width: 24),
             OutlinedButton.icon(
               iconAlignment: IconAlignment.end,
-              onPressed: () {},
+              onPressed: () => downloadFile('assets/resume.pdf', 'resume.pdf'),
               icon: Icon(MingCute.download_2_line, size: 18),
               label: Text(
                 "Download Resume",

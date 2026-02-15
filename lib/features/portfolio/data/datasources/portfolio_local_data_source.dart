@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:portfolio_app/core/theme/app_colors.dart';
 
 import '../models/portfolio_models.dart';
@@ -20,7 +19,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
         "title": "Senior Mobile & Backend Lead",
         "bio": "I Build Systems That Scale and Teams That Last.",
         "subBio":
-        "Senior Mobile & Backend Lead specializing in high-throughput JVM architectures, Rust systems, and reactive UIs.",
+            "Senior Mobile & Backend Lead specializing in high-throughput JVM architectures, Rust systems, and reactive UIs.",
       },
       "experiences": [
         {
@@ -28,10 +27,9 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
           "role": "Senior Lead Mobile & Backend",
           "duration": "2023 - PRESENT",
           "description":
-          "Architecting mission-critical infrastructure using Kotlin, Flutter, and Rust(Axum). Focused on creating resilient backend systems that support low-latency mobile interactions.",
+              "Architecting mission-critical infrastructure using Kotlin, Flutter, and Rust(Axum). Focused on creating resilient backend systems that support low-latency mobile interactions.",
           "technologies": ["South/Axum", "Kafka", "Flutter", "PostgreSQL"],
-          "metric":
-          null,
+          "metric": null,
           // No specific metric shown in design for this one, or maybe it's the 38% one? Let's check the design.
           // Wait, the design shows "38% EVALUATION" for Infosec Technologies.
           "logo": "assets/hyde_innovations.png",
@@ -41,7 +39,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
           "role": "Lead Developer",
           "duration": "2019 - 2023",
           "description":
-          "Managed a 10-person core development team. Reduced production bugs by 30% via CI/CD pipelines.",
+              "Managed a 10-person core development team. Reduced production bugs by 30% via CI/CD pipelines.",
           "technologies": ["Java", "Spring Boot", "React"],
           "metric": "38%\nEVALUATION",
           "logo": "assets/infosec.png",
@@ -51,7 +49,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
           "role": "Mobile Application Consultant",
           "duration": "2018 - 2019",
           "description":
-          "Revitalized legacy mobile applications. Spearheaded the migration to a modern reactive architecture, resulting in massive engagement gains.",
+              "Revitalized legacy mobile applications. Spearheaded the migration to a modern reactive architecture, resulting in massive engagement gains.",
           "technologies": ["Android", "Kotlin", "Firebase"],
           "metric": "40%\nINCREASED DAU",
           "logo": "assets/netify.png",
@@ -62,7 +60,7 @@ class PortfolioLocalDataSourceImpl implements PortfolioLocalDataSource {
           "name": "Rust",
           "purpose": "Systems Performance",
           "category": "Backend Systems",
-          "proficiency": 0.80
+          "proficiency": 0.80,
         },
         {
           "name": "Java / JVM",

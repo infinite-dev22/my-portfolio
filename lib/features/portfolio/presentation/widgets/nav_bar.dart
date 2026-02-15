@@ -3,9 +3,25 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
+import '../../../../core/utils/file_downloader.dart';
 
-class NavBar extends StatelessWidget {
+class NavBar extends StatefulWidget {
   const NavBar({super.key});
+
+  @override
+  State<NavBar> createState() => _NavBarState();
+}
+
+class _NavBarState extends State<NavBar> {
+  double _turns = 0.0;
+
+  void _rotate() {
+    setState(() => _turns += 0.5);
+  }
+
+  void _unRotate() {
+    setState(() => _turns -= 0.5);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,49 +37,59 @@ class NavBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Row(
-            children: [
-              const Icon(Icons.terminal, color: AppColors.primary, size: 24),
-              const SizedBox(width: 8),
-              RichText(
-                text: TextSpan(
-                  style: GoogleFonts.jetBrainsMono(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                    letterSpacing: 1.2,
-                  ),
-                  children: [
-                    TextSpan(
-                      text: "JVM ",
-                      style: GoogleFonts.jetBrainsMono(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        height: 1.1,
-                      ),
-                    ),
-                    TextSpan(
-                      text: "_SYS",
-                      style: GoogleFonts.jetBrainsMono(
-                        color: AppColors.primary,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        height: 1.1,
-                      ),
-                    ),
-                  ],
+          MouseRegion(
+            cursor: SystemMouseCursors.click,
+            onEnter: (event) => setState(() => _rotate()),
+            onExit: (event) => setState(() => _unRotate()),
+            child: Row(
+              children: [
+                AnimatedRotation(
+                  turns: _turns,
+                  duration: const Duration(milliseconds: 300),
+                  child: const Icon(
+                      Icons.terminal, color: AppColors.primary, size: 24),
                 ),
-              ),
-            ],
+                const SizedBox(width: 8),
+                RichText(
+                  text: TextSpan(
+                    style: GoogleFonts.jetBrainsMono(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                      letterSpacing: 1.2,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: "JVM ",
+                        style: GoogleFonts.jetBrainsMono(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          height: 1.1,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "_SYS",
+                        style: GoogleFonts.jetBrainsMono(
+                          color: AppColors.primary,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                          height: 1.1,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
           if (!ResponsiveLayout.isMobile(context))
             Row(
               children: [
-                _navItem('._systems'),
-                _navItem('._experience'),
-                _navItem('._tech_arsenal'),
-                _navItem('._metrics'),
+                NavItem('._systems'),
+                NavItem('._experience'),
+                NavItem('._tech_arsenal'),
+                NavItem('._metrics'),
               ],
             ),
           if (ResponsiveLayout.isMobile(context))
@@ -73,23 +99,47 @@ class NavBar extends StatelessWidget {
             )
           else
             FilledButton(
-              onPressed: () {},
+              onPressed: () => downloadFile('assets/resume.pdf', 'resume.pdf'),
               child: Text("Resume.pdf", style: GoogleFonts.jetBrainsMono()),
             ),
         ],
       ),
     );
   }
+}
 
-  Widget _navItem(String title) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20),
-      child: Text(
-        title,
-        style: GoogleFonts.jetBrainsMono(
-          color: Colors.white54,
-          fontSize: 12,
-          fontWeight: FontWeight.w500,
+class NavItem extends StatefulWidget {
+  final String title;
+
+  const NavItem(this.title, {super.key});
+
+  @override
+  State<NavItem> createState() => _NavItemState();
+}
+
+class _NavItemState extends State<NavItem> {
+  bool isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (event) => setState(() => isHovered = true),
+        onExit: (event) => setState(() => isHovered = false),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: Text(
+            widget.title,
+            style: GoogleFonts.jetBrainsMono(
+              color: isHovered
+                  ? AppColors.primary
+                  : Colors.white54,
+              fontSize: 12,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ),
       ),
     );

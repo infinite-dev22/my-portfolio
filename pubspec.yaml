@@ -17,6 +17,7 @@ dependencies:
   google_fonts: ^8.0.1
   icons_plus: ^5.0.0
   syntax_highlight: ^0.5.0
+  universal_html: ^2.3.0
   url_launcher: ^6.3.2
 
 dev_dependencies:
@@ -26,3 +27,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/
