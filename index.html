@@ -13,7 +13,6 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <link rel="icon" type="image/png" href="favicon.png"/>
-
   <title>Jonathan Mark Mwigo</title>
   <link rel="manifest" href="manifest.json">
 
@@ -36,42 +35,49 @@
     }
 
     .boot-container {
-      width: min(650px, 92%);
+      width: min(720px, 94%);
     }
 
     .boot-title {
       color: #38bdf8;
-      margin-bottom: 20px;
+      margin-bottom: 14px;
       letter-spacing: 2px;
       font-size: 14px;
+    }
+
+    .ascii {
+      color: #f97316;
+      font-size: 11px;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      white-space: pre;
     }
 
     .boot-log {
       font-size: 13px;
       line-height: 1.6;
-      min-height: 180px;
+      min-height: 200px;
     }
 
     .boot-line {
-      opacity: 0;
-      animation: fadeIn 0.25s forwards;
+      white-space: pre;
     }
 
-    .boot-line:nth-child(odd) {
-      color: #38bdf8;
+    .cursor {
+      display: inline-block;
+      width: 8px;
+      background: #38bdf8;
+      margin-left: 4px;
+      animation: blink 1s steps(2, start) infinite;
     }
 
-    .boot-line:nth-child(even) {
-      color: #f97316;
-    }
-
-    .boot-line.reliability {
-      color: #22c55e;
-      font-weight: 600;
-    }
+    .reliability { color: #22c55e; font-weight: 600; }
+    .nominal { color: #22c55e; font-weight: 700; }
+    .latency { color: #38bdf8; }
+    .error { color: #f97316; }
 
     .boot-progress {
-      margin-top: 20px;
+      margin-top: 18px;
       height: 6px;
       background: #1e293b;
       border-radius: 4px;
@@ -82,15 +88,15 @@
       height: 100%;
       width: 0%;
       background: linear-gradient(90deg, #38bdf8, #f97316);
-      transition: width 0.25s ease;
+      transition: width 0.2s ease;
     }
 
     .fade-out {
       animation: fadeOut 0.5s forwards;
     }
 
-    @keyframes fadeIn {
-      to { opacity: 1; }
+    @keyframes blink {
+      to { visibility: hidden; }
     }
 
     @keyframes fadeOut {
@@ -103,6 +109,14 @@
   <div id="boot-loader">
     <div class="boot-container">
       <div class="boot-title">NOMARD INC. :: SYSTEM BOOT</div>
+
+      <div class="ascii">
+   _   _                           _ 
+  | \ | | ___  _ __ ___   __ _  __| |
+  |  \| |/ _ \| '_ ` _ \ / _` |/ _` |
+  | |\  | (_) | | | | | | (_| | (_| |
+  |_| \_|\___/|_| |_| |_|\__,_|\__,_|
+      </div>
 
       <div class="boot-log" id="boot-log"></div>
 
@@ -119,38 +133,64 @@
       "[ OK   ] Rust async executor (Actix)",
       "[ OK   ] Reactive UI compositor",
       "[ OK   ] Distributed cache warmup",
-      "[ OK   ] Reliability score: 99.99% uptime",
+      "[ METR ] Reliability: 99.99% uptime",
+      "[ METR ] Latency: <100ms p95",
+      "[ METR ] Error rate: 0.01%",
       "[ LOAD ] 10,000 req/min profile",
       "[ AUTH ] Jonathan Mark Mwigo",
       "[ ROLE ] Senior Systems Architect",
-      "[ OK   ] Portfolio kernel ready"
+      "[ OK   ] ALL SYSTEMS NOMINAL"
     ];
 
     const log = document.getElementById("boot-log");
     const bar = document.getElementById("boot-bar");
 
-    let i = 0;
+    let lineIndex = 0;
+    let charIndex = 0;
+    let currentLineEl = null;
 
-    function typeLine() {
-      if (i < lines.length) {
-        const line = document.createElement("div");
-        line.className = "boot-line";
+    function typeChar() {
+      if (lineIndex >= lines.length) return;
 
-        if (lines[i].includes("Reliability score")) {
-          line.classList.add("reliability");
-        }
+      const text = lines[lineIndex];
 
-        line.textContent = lines[i];
-        log.appendChild(line);
+      if (!currentLineEl) {
+        currentLineEl = document.createElement("div");
+        currentLineEl.className = "boot-line";
+        log.appendChild(currentLineEl);
+      }
 
-        bar.style.width = ((i + 1) / lines.length) * 100 + "%";
+      currentLineEl.textContent = text.substring(0, charIndex);
 
-        i++;
-        setTimeout(typeLine, 280);
+      charIndex++;
+
+      if (charIndex <= text.length) {
+        setTimeout(typeChar, 18);
+      } else {
+        styleLine(currentLineEl, text);
+        currentLineEl = null;
+        charIndex = 0;
+        lineIndex++;
+
+        bar.style.width = (lineIndex / lines.length) * 100 + "%";
+
+        setTimeout(typeChar, 120);
       }
     }
 
-    typeLine();
+    function styleLine(el, text) {
+      if (text.includes("Reliability")) el.classList.add("reliability");
+      if (text.includes("Latency")) el.classList.add("latency");
+      if (text.includes("Error rate")) el.classList.add("error");
+      if (text.includes("ALL SYSTEMS NOMINAL")) el.classList.add("nominal");
+    }
+
+    typeChar();
+
+    // Blinking cursor
+    const cursor = document.createElement("span");
+    cursor.className = "cursor";
+    document.querySelector(".boot-container").appendChild(cursor);
 
     window.addEventListener("flutter-first-frame", function () {
       const loader = document.getElementById("boot-loader");
@@ -159,7 +199,6 @@
     });
   </script>
 
-  <!-- Use HTML renderer compatible loader -->
   <script src="flutter.js" defer></script>
 </body>
 </html>
