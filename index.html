@@ -35,7 +35,6 @@
       overflow: hidden;
     }
 
-    /* scanline effect */
     #boot-loader::after {
       content: "";
       position: absolute;
@@ -50,9 +49,7 @@
       pointer-events: none;
     }
 
-    .boot-container {
-      width: min(760px, 95%);
-    }
+    .boot-container { width: min(760px, 95%); }
 
     .boot-title {
       color: #38bdf8;
@@ -69,12 +66,7 @@
       white-space: pre;
     }
 
-    .boot-log {
-      font-size: 13px;
-      line-height: 1.6;
-      min-height: 220px;
-    }
-
+    .boot-log { font-size: 13px; line-height: 1.6; min-height: 220px; }
     .boot-line { white-space: pre; }
 
     .reliability { color: #22c55e; font-weight: 600; }
@@ -124,8 +116,10 @@
       height: 100%;
       width: 0%;
       background: #38bdf8;
-      transition: width 0.2s ease;
+      transition: width 0.25s ease;
     }
+
+    .boot-time { margin-top: 10px; font-size: 12px; color: #22c55e; }
 
     .disk {
       display: inline-block;
@@ -134,18 +128,39 @@
       animation: blink 0.8s steps(2, start) infinite;
     }
 
-    .boot-time {
-      margin-top: 10px;
-      font-size: 12px;
-      color: #22c55e;
+    .handshake {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      overflow: hidden;
     }
 
-    .fade-out {
-      animation: fadeOut 0.5s forwards;
+    .packet {
+      position: absolute;
+      width: 6px;
+      height: 2px;
+      background: #38bdf8;
+      animation: movePacket 2s linear infinite;
+      opacity: 0.7;
+    }
+
+    .packet:nth-child(2) { animation-delay: 0.4s; background: #f97316; }
+    .packet:nth-child(3) { animation-delay: 0.8s; }
+    .packet:nth-child(4) { animation-delay: 1.2s; background: #22c55e; }
+
+    @keyframes movePacket {
+      from { left: -10px; }
+      to { left: 100%; }
     }
 
     @keyframes blink {
       to { visibility: hidden; }
+    }
+
+    .fade-out {
+      animation: fadeOut 0.6s forwards;
     }
 
     @keyframes fadeOut {
@@ -167,28 +182,23 @@
   |_| \_|\___/|_| |_| |_|\__,_|\__,_|
       </div>
 
+      <div class="boot-line reliability" id="cluster">[ CLSTR ] Initializing nodes...</div>
+      <div class="boot-line" id="features">[ FLAG  ] Validating feature toggles...</div>
+
       <div class="boot-log" id="boot-log"></div>
 
       <div class="boot-progress">
         <div class="boot-bar" id="boot-bar"></div>
       </div>
 
-      <div class="telemetry">
-        <div class="meter">
-          CPU
-          <div class="meter-bar"><div class="meter-fill" id="cpu"></div></div>
-        </div>
-        <div class="meter">
-          MEM
-          <div class="meter-bar"><div class="meter-fill" id="mem"></div></div>
-        </div>
-        <div class="meter">
-          NET
-          <div class="meter-bar"><div class="meter-fill" id="net"></div></div>
-        </div>
-      </div>
-
       <div class="boot-time" id="boot-time"></div>
+    </div>
+
+    <div class="handshake">
+      <div class="packet"></div>
+      <div class="packet"></div>
+      <div class="packet"></div>
+      <div class="packet"></div>
     </div>
   </div>
 
@@ -217,6 +227,10 @@
     let charIndex = 0;
     let currentLineEl = null;
 
+    function randomDelay(min, max) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
     function typeChar() {
       if (lineIndex >= lines.length) return;
 
@@ -232,7 +246,7 @@
       charIndex++;
 
       if (charIndex <= text.length) {
-        setTimeout(typeChar, 18);
+        setTimeout(typeChar, randomDelay(10, 30));
       } else {
         styleLine(currentLineEl, text);
         currentLineEl = null;
@@ -241,7 +255,7 @@
 
         bar.style.width = (lineIndex / lines.length) * 100 + "%";
 
-        setTimeout(typeChar, 120);
+        setTimeout(typeChar, randomDelay(80, 160));
       }
     }
 
@@ -254,29 +268,59 @@
 
     typeChar();
 
-    // telemetry animation
-    function animateMeters() {
-      document.getElementById("cpu").style.width = (20 + Math.random()*60) + "%";
-      document.getElementById("mem").style.width = (30 + Math.random()*50) + "%";
-      document.getElementById("net").style.width = (10 + Math.random()*80) + "%";
-    }
-    setInterval(animateMeters, 300);
+    // cluster simulation
+    const clusterEl = document.getElementById("cluster");
+    let nodes = 0;
 
-    // disk activity indicator
+    function bringNodeOnline() {
+      nodes++;
+      clusterEl.textContent = `[ CLSTR ] Node-${nodes} online`;
+
+      if (nodes < 3) {
+        setTimeout(bringNodeOnline, randomDelay(300, 700));
+      } else {
+        clusterEl.textContent = "[ CLSTR ] 3 nodes online (healthy quorum)";
+        clusterEl.classList.add("reliability");
+      }
+    }
+    setTimeout(bringNodeOnline, 700);
+
+    // feature flags
+    const featuresEl = document.getElementById("features");
+    const flags = ["SSE", "HTTP/3", "Edge Cache", "A/B Routing"];
+    let flagIndex = 0;
+
+    function validateFlag() {
+      if (flagIndex < flags.length) {
+        featuresEl.textContent = `[ FLAG  ] ${flags[flagIndex]} enabled ✔`;
+        flagIndex++;
+        setTimeout(validateFlag, randomDelay(180, 320));
+      } else {
+        featuresEl.textContent = "[ FLAG  ] All feature toggles verified";
+        featuresEl.classList.add("reliability");
+      }
+    }
+    setTimeout(validateFlag, 1400);
+
+    // disk indicator
     const disk = document.createElement("span");
     disk.textContent = "●";
     disk.className = "disk";
     document.querySelector(".boot-title").appendChild(disk);
 
-    // boot time
+    // boot time + fade
     window.addEventListener("flutter-first-frame", function () {
       const end = performance.now();
       document.getElementById("boot-time").textContent =
         "Boot time: " + ((end - start) / 1000).toFixed(2) + "s";
 
       const loader = document.getElementById("boot-loader");
-      loader.classList.add("fade-out");
-      setTimeout(() => loader.remove(), 600);
+    if (loader) {
+      loader.style.opacity = '0';
+      loader.style.transition = 'opacity 0.4s ease';
+      setTimeout(() => loader.remove(), 400);
+    }
+    document.body.style.overflow = 'auto';
     });
   </script>
 
