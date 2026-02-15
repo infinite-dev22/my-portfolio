@@ -1,46 +1,165 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-  <base href="/my-portfolio/">
+  <base href="/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="A new Flutter project.">
+  <meta name="description" content="Jonathan Mark Mwigo - Senior Systems Engineer Portfolio">
 
-  <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="portfolio_app">
+  <meta name="apple-mobile-web-app-title" content="Jonathan Mwigo">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
   <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>portfolio_app</title>
+  <title>Jonathan Mark Mwigo</title>
   <link rel="manifest" href="manifest.json">
-</head>
-<body>
-  <!--
-    You can customize the "flutter_bootstrap.js" script.
-    This is useful to provide a custom configuration to the Flutter loader
-    or to give the user feedback during the initialization process.
 
-    For more details:
-    * https://docs.flutter.dev/platform-integration/web/initialization
-  -->
-  <script src="flutter_bootstrap.js" async></script>
+  <style>
+    body {
+      margin: 0;
+      background: #020617;
+    }
+
+    #boot-loader {
+      position: fixed;
+      inset: 0;
+      background: radial-gradient(circle at top, #0f172a, #020617);
+      color: #e2e8f0;
+      font-family: "JetBrains Mono", monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 9999;
+    }
+
+    .boot-container {
+      width: min(650px, 92%);
+    }
+
+    .boot-title {
+      color: #38bdf8;
+      margin-bottom: 20px;
+      letter-spacing: 2px;
+      font-size: 14px;
+    }
+
+    .boot-log {
+      font-size: 13px;
+      line-height: 1.6;
+      min-height: 180px;
+    }
+
+    .boot-line {
+      opacity: 0;
+      animation: fadeIn 0.25s forwards;
+    }
+
+    .boot-line:nth-child(odd) {
+      color: #38bdf8;
+    }
+
+    .boot-line:nth-child(even) {
+      color: #f97316;
+    }
+
+    .boot-line.reliability {
+      color: #22c55e;
+      font-weight: 600;
+    }
+
+    .boot-progress {
+      margin-top: 20px;
+      height: 6px;
+      background: #1e293b;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .boot-bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #38bdf8, #f97316);
+      transition: width 0.25s ease;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.5s forwards;
+    }
+
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      to { opacity: 0; visibility: hidden; }
+    }
+  </style>
+</head>
+
+<body>
+  <div id="boot-loader">
+    <div class="boot-container">
+      <div class="boot-title">NOMARD INC. :: SYSTEM BOOT</div>
+
+      <div class="boot-log" id="boot-log"></div>
+
+      <div class="boot-progress">
+        <div class="boot-bar" id="boot-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const lines = [
+      "[ INIT ] Nomard Core Runtime v3.2",
+      "[ OK   ] JVM high-throughput engine",
+      "[ OK   ] Rust async executor (Actix)",
+      "[ OK   ] Reactive UI compositor",
+      "[ OK   ] Distributed cache warmup",
+      "[ OK   ] Reliability score: 99.99% uptime",
+      "[ LOAD ] 10,000 req/min profile",
+      "[ AUTH ] Jonathan Mark Mwigo",
+      "[ ROLE ] Senior Systems Architect",
+      "[ OK   ] Portfolio kernel ready"
+    ];
+
+    const log = document.getElementById("boot-log");
+    const bar = document.getElementById("boot-bar");
+
+    let i = 0;
+
+    function typeLine() {
+      if (i < lines.length) {
+        const line = document.createElement("div");
+        line.className = "boot-line";
+
+        if (lines[i].includes("Reliability score")) {
+          line.classList.add("reliability");
+        }
+
+        line.textContent = lines[i];
+        log.appendChild(line);
+
+        bar.style.width = ((i + 1) / lines.length) * 100 + "%";
+
+        i++;
+        setTimeout(typeLine, 280);
+      }
+    }
+
+    typeLine();
+
+    window.addEventListener("flutter-first-frame", function () {
+      const loader = document.getElementById("boot-loader");
+      loader.classList.add("fade-out");
+      setTimeout(() => loader.remove(), 500);
+    });
+  </script>
+
+  <!-- Use HTML renderer compatible loader -->
+  <script src="flutter.js" defer></script>
 </body>
 </html>
