@@ -9,7 +9,6 @@ import '../widgets/experience_section.dart';
 import '../widgets/skills_section.dart';
 import '../widgets/stats_section.dart';
 import '../widgets/footer_section.dart';
-import '../../../../core/ui/background_pattern.dart';
 
 class PortfolioPage extends StatelessWidget {
   final Highlighter codeHighlighter;
@@ -31,16 +30,21 @@ class PortfolioPage extends StatelessWidget {
               state.portfolioData != null) {
             final data = state.portfolioData!;
             return SingleChildScrollView(
-              child: Column(
-                children: [
-                  const NavBar(),
-                  HeroSection(profile: data.profile, highlighter: codeHighlighter),
-                  const WhoIsJonathanSection(), // Inserted WhoIsJonathanSection
-                  ExperienceSection(experiences: data.experiences),
-                  SkillsSection(skills: data.skills),
-                  StatsSection(stats: data.stats),
-                  const FooterSection(),
-                ],
+              child: RepaintBoundary(
+                child: Column(
+                  children: [
+                    const NavBar(),
+                    HeroSection(
+                      profile: data.profile,
+                      highlighter: codeHighlighter,
+                    ),
+                    const WhoIsJonathanSection(), // Inserted WhoIsJonathanSection
+                    ExperienceSection(experiences: data.experiences),
+                    SkillsSection(skills: data.skills),
+                    StatsSection(stats: data.stats),
+                    const FooterSection(),
+                  ],
+                ),
               ),
             );
           }

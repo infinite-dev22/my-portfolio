@@ -9,7 +9,7 @@ import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../domain/entities/portfolio_entities.dart';
 
-class HeroSection extends StatelessWidget {
+class HeroSection extends StatefulWidget {
   final Profile profile;
   final Highlighter highlighter;
 
@@ -18,6 +18,45 @@ class HeroSection extends StatelessWidget {
     required this.profile,
     required this.highlighter,
   });
+
+  @override
+  State<HeroSection> createState() => _HeroSectionState();
+}
+
+class _HeroSectionState extends State<HeroSection> {
+  late final TextSpan _highlightedCode;
+
+  static const _codeString = '''
+   01   /**
+   02    * Jonathan – performance-focused engineer.
+   03    * Strategy: validate SLO → optimize CPU
+   04    * paths → enable cache → tune concurrency.
+   05    */
+   06   public class Jonathan implements Engineer {
+   07   
+   08       private final SystemSpec system;
+   09   
+   10       @Override
+   11       public void scale() throws ScaleException {
+   12   
+   13           // Guard clauses (fail fast)
+   14           if (system.throughput() <= 0)
+   15               throw new ScaleException("Invalid throughput");
+   16           if (system.reliability() < 99.0)
+   17               throw new ScaleException("SLO below threshold");
+   18   
+   19           optimizeHotLoops();   // reduce allocations, avoid boxing
+   20           enableCaching();      // e.g., Redis for read-heavy paths
+   21           tuneThreadPools();    // align threads with CPU cores
+   22       }
+   23   }
+    ''';
+
+  @override
+  void initState() {
+    super.initState();
+    _highlightedCode = widget.highlighter.highlight(_codeString);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +71,7 @@ class HeroSection extends StatelessWidget {
             children: [
               _buildTextContent(context),
               const SizedBox(height: 40),
-              _buildTerminal(context, highlighter: highlighter),
+              _buildTerminal(context),
             ],
           ),
           desktop: Row(
@@ -40,10 +79,7 @@ class HeroSection extends StatelessWidget {
             children: [
               Expanded(flex: 1, child: _buildTextContent(context)),
               const SizedBox(width: 80),
-              Expanded(
-                flex: 1,
-                child: _buildTerminal(context, highlighter: highlighter),
-              ),
+              Expanded(flex: 1, child: _buildTerminal(context)),
             ],
           ),
         ),
@@ -97,7 +133,7 @@ class HeroSection extends StatelessWidget {
             ),
             children: [
               TextSpan(
-                text: "${profile.name}: ",
+                text: "${widget.profile.name}: ",
                 style: GoogleFonts.jetBrainsMono(
                   color: Colors.white,
                   fontSize: ResponsiveLayout.isMobile(context) ? 32 : 56,
@@ -168,41 +204,15 @@ class HeroSection extends StatelessWidget {
     );
   }
 
-  Widget _buildTerminal(
-    BuildContext context, {
-    required Highlighter highlighter,
-  }) {
-    var myCodeString = '''
-   01   /**
-   02    * Jonathan – performance-focused engineer.
-   03    * Strategy: validate SLO → optimize CPU
-   04    * paths → enable cache → tune concurrency.
-   05    */
-   06   public class Jonathan implements Engineer {
-   07   
-   08       private final SystemSpec system;
-   09   
-   10       @Override
-   11       public void scale() throws ScaleException {
-   12   
-   13           // Guard clauses (fail fast)
-   14           if (system.throughput() <= 0)
-   15               throw new ScaleException("Invalid throughput");
-   16           if (system.reliability() < 99.0)
-   17               throw new ScaleException("SLO below threshold");
-   18   
-   19           optimizeHotLoops();   // reduce allocations, avoid boxing
-   20           enableCaching();      // e.g., Redis for read-heavy paths
-   21           tuneThreadPools();    // align threads with CPU cores
-   22       }
-   23   }
-    ''';
-    var highlightedCode = highlighter.highlight(myCodeString);
+  Widget _buildTerminal(BuildContext context) {
     return Stack(
       children: [
         PortfolioCodeEditor(
           fileName: "ArchitectureV3.java",
-          child: Text.rich(highlightedCode, style: GoogleFonts.jetBrainsMono()),
+          child: Text.rich(
+            _highlightedCode,
+            style: GoogleFonts.jetBrainsMono(),
+          ),
         ),
         Positioned(bottom: 20, right: 20, child: _PacketTraffic()),
       ],

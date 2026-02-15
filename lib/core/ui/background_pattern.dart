@@ -13,7 +13,9 @@ class BackgroundPattern extends StatelessWidget {
         // Background Color
         Positioned.fill(child: Container(color: AppColors.background)),
         // Grid Pattern
-        Positioned.fill(child: CustomPaint(painter: GridPainter())),
+        Positioned.fill(
+          child: RepaintBoundary(child: CustomPaint(painter: GridPainter())),
+        ),
         // Content
         child,
       ],

@@ -185,16 +185,18 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                           TextSpan(
                             text:
                                 ". Specializing in high-throughput JVM architectures and Reactive UIs that don't compromise on speed.\n\n",
-                              style: GoogleFonts.jetBrainsMono()
+                            style: GoogleFonts.jetBrainsMono(),
                           ),
 
                           TextSpan(
                             text: "Executing Lead_Mentorship.v2 ... ",
-                              style: GoogleFonts.jetBrainsMono()
+                            style: GoogleFonts.jetBrainsMono(),
                           ),
                           TextSpan(
                             text: "DONE",
-                            style: GoogleFonts.jetBrainsMono(color: Colors.green),
+                            style: GoogleFonts.jetBrainsMono(
+                              color: Colors.green,
+                            ),
                           ),
                         ],
                       ),
@@ -210,12 +212,14 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                             fontSize: 18,
                           ),
                         ),
-                        FadeTransition(
-                          opacity: _cursorController,
-                          child: Container(
-                            width: 10,
-                            height: 20,
-                            color: Colors.white,
+                        RepaintBoundary(
+                          child: FadeTransition(
+                            opacity: _cursorController,
+                            child: Container(
+                              width: 10,
+                              height: 20,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ],
