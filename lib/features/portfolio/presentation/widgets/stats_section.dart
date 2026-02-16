@@ -22,6 +22,7 @@ class StatsSection extends StatelessWidget {
       ),
       child: ResponsiveLayout(
         mobile: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: stats
               .map(
                 (stat) => Padding(
