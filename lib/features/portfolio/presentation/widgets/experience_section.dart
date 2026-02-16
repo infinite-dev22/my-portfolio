@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -28,7 +29,7 @@ class ExperienceSection extends StatelessWidget {
                 "3x Lead Experience",
                 style: GoogleFonts.jetBrainsMono(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: .bold,
                   fontSize: ResponsiveLayout.isMobile(context) ? 24 : 32,
                 ),
               ),
@@ -39,42 +40,42 @@ class ExperienceSection extends StatelessWidget {
               const SizedBox(height: 40),
               ResponsiveLayout(
                 mobile: Column(
+                  spacing: 24,
                   children: [
                     _CurrentExperienceCard(),
                     _PreviousExperienceCard(),
-                    _OldExperienceCard(),
-                    const SizedBox(height: 24),
-                    const _PhilosophyCard(),
+                    OldExperienceCard(),
+                    const PhilosophyCard(),
                   ],
                 ),
                 desktop: Column(
+                  spacing: 24,
                   children: [
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 24,
                       children: [
                         Expanded(
                           flex: 4,
                           child: _CurrentExperienceCard(), // Hyde
                         ),
-                        const SizedBox(width: 24),
                         Expanded(
                           flex: 2,
                           child: _PreviousExperienceCard(), // Infosec
                         ),
                       ],
                     ),
-                    const SizedBox(height: 24),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
+                      spacing: 24,
                       children: [
                         Expanded(
                           flex: 3,
-                          child: _OldExperienceCard(), // Netify
+                          child: OldExperienceCard(), // Netify
                         ),
-                        const SizedBox(width: 24),
                         const Expanded(
                           flex: 4,
-                          child: _PhilosophyCard(), // Quote
+                          child: PhilosophyCard(), // Quote
                         ),
                       ],
                     ),
@@ -89,70 +90,78 @@ class ExperienceSection extends StatelessWidget {
   }
 }
 
-class _PhilosophyCard extends StatelessWidget {
-  const _PhilosophyCard();
+class PhilosophyCard extends StatelessWidget {
+  const PhilosophyCard({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 350, // Match height of experience cards roughly
-      padding: const EdgeInsets.all(60),
+    return LayoutBuilder(builder: (context, constraints) => Container(
+      constraints: BoxConstraints(minHeight: 350),
       decoration: ShapeDecoration(
-        shape: RoundedSuperellipseBorder(
-          borderRadius: BorderRadius.circular(24),
-        ),
-        gradient: LinearGradient(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [const Color(0xFF0c2643), const Color(0xFF221a17)],
+          colors: [Color(0xFF0c2643), Color(0xFF111827), Color(0xFF221a17)],
+          stops: [0.0, 0.5, 1.0],
         ),
       ),
-      child: Stack(
-        children: [
-          Align(
-            alignment: Alignment.center,
-            child: Text(
-              "SCALE",
-              style: GoogleFonts.jetBrainsMono(
-                color: Colors.white24,
-                fontSize: 200,
-                letterSpacing: 2.0,
-                fontWeight: FontWeight.bold,
+      padding: const EdgeInsets.all(60),
+      child: SizedBox(
+        height: constraints.minHeight,
+        child: Stack(
+          children: [
+            // Watermark text (behind content)
+            Positioned.fill(
+              child: Center(
+                child: Text(
+                  "SCALE",
+                  style: GoogleFonts.jetBrainsMono(
+                    color: Colors.white12,
+                    fontSize: 33.sp,
+                    letterSpacing: 2.0,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
               ),
             ),
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: .center,
-              children: [
-                Text(
-                  "LEADERSHIP PHILOSOPHY",
-                  style: GoogleFonts.jetBrainsMono(
-                    color: Colors.white54,
-                    fontSize: 18,
-                    letterSpacing: 2.0,
-                    fontWeight: FontWeight.w200,
-                  ),
+            // Primary content (centered)
+            Positioned.fill(
+              child: Center(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      "LEADERSHIP PHILOSOPHY",
+                      style: GoogleFonts.jetBrainsMono(
+                        color: Colors.white54,
+                        fontSize: 18,
+                        letterSpacing: 2.0,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      '"Infrastructure is useless\nwithout a culture that knows\nhow to maintain it."',
+                      textAlign: TextAlign.center,
+                      style: GoogleFonts.jetBrainsMono(
+                        color: Colors.white,
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.bold,
+                        fontStyle: FontStyle.italic,
+                        height: 1.4,
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 24),
-                Text(
-                  "\"Infrastructure is useless\nwithout a culture that knows\nhow to maintain it.\"",
-                  textAlign: TextAlign.center,
-                  style: GoogleFonts.jetBrainsMono(
-                    color: Colors.white,
-                    fontSize: 40,
-                    fontWeight: FontWeight.bold,
-                    height: 1.4,
-                  ),
-                ),
-              ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
-    );
+    ),);
   }
 }
 
@@ -172,7 +181,7 @@ class _CurrentExperienceCardState extends State<_CurrentExperienceCard> {
       onEnter: (event) => setState(() => isHovered = true),
       onExit: (event) => setState(() => isHovered = false),
       child: Container(
-        height: 350,
+        constraints: BoxConstraints(minHeight: 350),
         // Fixed height for grid alignment
         padding: const EdgeInsets.all(32),
         decoration: ShapeDecoration(
@@ -189,45 +198,50 @@ class _CurrentExperienceCardState extends State<_CurrentExperienceCard> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
+          spacing: 80,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
-              textBaseline: TextBaseline.alphabetic,
+            Column(
+              crossAxisAlignment: .start,
+              spacing: 8,
               children: [
-                Flexible(
-                  child: Text(
-                    "Hyde Innovations",
-                    style: GoogleFonts.jetBrainsMono(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.alphabetic,
+                  children: [
+                    Flexible(
+                      child: Text(
+                        "Hyde Innovations",
+                        style: GoogleFonts.jetBrainsMono(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: .bold,
+                        ),
+                      ),
                     ),
-                  ),
+                    Text(
+                      "2024 - PRESENT",
+                      style: GoogleFonts.jetBrainsMono(
+                        color: AppColors.textSecondary,
+                      ),
+                    ),
+                  ],
                 ),
                 Text(
-                  "2024 - PRESENT",
+                  "Senior Lead Mobile & Backend",
                   style: GoogleFonts.jetBrainsMono(
-                    color: AppColors.textSecondary,
+                    color: AppColors.primary,
+                    fontWeight: .w500,
                   ),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              "Senior Lead Mobile & Backend",
-              style: GoogleFonts.jetBrainsMono(
-                color: AppColors.primary,
-                fontWeight: FontWeight.w500,
-              ),
-            ),
-            const Spacer(),
             RichText(
               text: TextSpan(
                 style: GoogleFonts.jetBrainsMono(
                   color: AppColors.textPrimary,
                   fontSize: 16,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: .bold,
                   height: 1.1,
                 ),
                 children: [
@@ -236,49 +250,48 @@ class _CurrentExperienceCardState extends State<_CurrentExperienceCard> {
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 16,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: .w200,
                     ),
                   ),
                   TextSpan(
                     text: "Kotlin",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: .bold),
                   ),
                   TextSpan(
                     text: ", ",
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 16,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: .w200,
                     ),
                   ),
                   TextSpan(
                     text: "Flutter",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: .bold),
                   ),
                   TextSpan(
                     text: ", ",
                     style: TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 16,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: .w200,
                     ),
                   ),
                   TextSpan(
                     text: "Rust/Actix",
-                    style: TextStyle(fontWeight: FontWeight.bold),
+                    style: TextStyle(fontWeight: .bold),
                   ),
                   TextSpan(
                     text:
                         ". Focused on creating resilient backend systems that support low-latency mobile interactions.",
                     style: TextStyle(
                       color: AppColors.textSecondary,
-                      fontWeight: FontWeight.w200,
+                      fontWeight: .w200,
                     ),
                   ),
                 ],
               ),
             ),
-            const Spacer(),
             Wrap(
               spacing: 8,
               children:
@@ -334,7 +347,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
       onEnter: (event) => setState(() => isHovered = true),
       onExit: (event) => setState(() => isHovered = false),
       child: Container(
-        height: 350,
+        constraints: BoxConstraints(minHeight: 350),
         // Fixed height for grid alignment
         padding: const EdgeInsets.all(32),
         decoration: ShapeDecoration(
@@ -362,14 +375,14 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                   style: GoogleFonts.jetBrainsMono(
                     color: Colors.white,
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: .bold,
                   ),
                 ),
                 Text(
                   "Lead Developer",
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.secondary,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: .w500,
                   ),
                 ),
                 Text(
@@ -382,8 +395,10 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
             ),
             Column(
               spacing: 8,
+              mainAxisSize: .min,
               children: [
                 Row(
+                  mainAxisSize: .min,
                   spacing: 8,
                   children: [
                     Icon(
@@ -391,30 +406,35 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                       color: AppColors.secondary,
                       size: 20,
                     ),
-                    Text(
-                      "Managed a 3-person core development team.",
-                      style: GoogleFonts.inter(
-                        color: AppColors.textSecondary,
-                        fontSize: 16,
-                        height: 1.6,
+                    Expanded(
+                      child: Text(
+                        "Managed a 3-person core development team.",
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 16,
+                          height: 1.6,
+                        ),
                       ),
                     ),
                   ],
                 ),
                 Row(
                   spacing: 8,
+                  mainAxisSize: .min,
                   children: [
                     Icon(
                       MingCute.check_circle_fill,
                       color: AppColors.secondary,
                       size: 20,
                     ),
-                    Text(
-                      "Reduced production bugs by 30% via CI/CD pipelines.",
-                      style: GoogleFonts.inter(
-                        color: AppColors.textSecondary,
-                        fontSize: 16,
-                        height: 1.6,
+                    Expanded(
+                      child: Text(
+                        "Reduced production bugs by 30% via CI/CD pipelines.",
+                        style: GoogleFonts.inter(
+                          color: AppColors.textSecondary,
+                          fontSize: 16,
+                          height: 1.6,
+                        ),
                       ),
                     ),
                   ],
@@ -429,7 +449,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                     "30%",
                     style: GoogleFonts.jetBrainsMono(
                       fontSize: 32,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: .bold,
                       color: AppColors.secondary,
                     ),
                   ),
@@ -450,14 +470,14 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
   }
 }
 
-class _OldExperienceCard extends StatefulWidget {
-  const _OldExperienceCard();
+class OldExperienceCard extends StatefulWidget {
+  const OldExperienceCard({super.key});
 
   @override
-  State<_OldExperienceCard> createState() => _OldExperienceCardState();
+  State<OldExperienceCard> createState() => _OldExperienceCardState();
 }
 
-class _OldExperienceCardState extends State<_OldExperienceCard> {
+class _OldExperienceCardState extends State<OldExperienceCard> {
   bool isHovered = false;
 
   @override
@@ -466,7 +486,7 @@ class _OldExperienceCardState extends State<_OldExperienceCard> {
       onEnter: (event) => setState(() => isHovered = true),
       onExit: (event) => setState(() => isHovered = false),
       child: Container(
-        height: 350,
+        constraints: BoxConstraints(minHeight: 350),
         // Fixed height for grid alignment
         padding: const EdgeInsets.all(32),
         decoration: ShapeDecoration(
@@ -494,14 +514,14 @@ class _OldExperienceCardState extends State<_OldExperienceCard> {
                   style: GoogleFonts.jetBrainsMono(
                     color: Colors.white,
                     fontSize: 20,
-                    fontWeight: FontWeight.bold,
+                    fontWeight: .bold,
                   ),
                 ),
                 Text(
                   "Mobile Application Consultant and Lead",
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.primary,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: .w500,
                   ),
                 ),
               ],
@@ -554,7 +574,7 @@ class _OldExperienceCardState extends State<_OldExperienceCard> {
                         "40%",
                         style: GoogleFonts.jetBrainsMono(
                           fontSize: 20,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: .bold,
                           color: AppColors.textPrimary,
                         ),
                       ),

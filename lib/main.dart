@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
+
 import 'core/theme/app_theme.dart';
 import 'features/portfolio/presentation/bloc/portfolio_bloc.dart';
 import 'features/portfolio/presentation/pages/portfolio_page.dart';
@@ -11,16 +13,11 @@ late final Highlighter _javaDarkHighlighter;
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // Initialize the highlighter.
-  await Highlighter.initialize([
-    'java',
-  ]);
+  await Highlighter.initialize(['java']);
 
   // Load the default dark theme and create a highlighter.
   var darkTheme = await HighlighterTheme.loadDarkTheme();
-  _javaDarkHighlighter = Highlighter(
-    language: 'java',
-    theme: darkTheme,
-  );
+  _javaDarkHighlighter = Highlighter(language: 'java', theme: darkTheme);
 
   await di.init();
   runApp(const MyApp());
@@ -37,11 +34,15 @@ class MyApp extends StatelessWidget {
           create: (_) => di.sl<PortfolioBloc>()..add(GetPortfolioDataEvent()),
         ),
       ],
-      child: MaterialApp(
-        title: 'Jonathan Mark Mwigo Portfolio',
-        debugShowCheckedModeBanner: false,
-        theme: AppTheme.darkTheme,
-        home: PortfolioPage(codeHighlighter: _javaDarkHighlighter),
+      child: ResponsiveSizer(
+        builder: (context, orientation, screenType) {
+          return MaterialApp(
+            title: 'Jonathan Mark Mwigo Portfolio',
+            debugShowCheckedModeBanner: false,
+            theme: AppTheme.darkTheme,
+            home: PortfolioPage(codeHighlighter: _javaDarkHighlighter),
+          );
+        },
       ),
     );
   }
