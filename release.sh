@@ -23,9 +23,15 @@ echo "Setting manifest"
 rm -r build/web/manifest.json
 cp -r assets/manifest.json build/web/
 
-echo "Setting manifest"
+echo "Setting html pages"
 rm -r build/web/index.html
 cp -r assets/pages/* build/web/
+
+echo "DONE"
+
+echo "Saving changes"
+git add .
+git commit -m "Updated icons, manifest, and html pages"
 
 echo "DONE"
 
