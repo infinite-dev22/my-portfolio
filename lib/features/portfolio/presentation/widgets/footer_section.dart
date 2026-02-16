@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../core/utils/responsive.dart';
+
 import '../../../../core/theme/app_colors.dart';
+import '../../../../core/utils/responsive.dart';
 
 class FooterSection extends StatelessWidget {
   const FooterSection({super.key});
@@ -110,12 +111,28 @@ class FooterSection extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 48),
-        Row(
-          children: [
-            _socialLink("LinkedIn/Jonathan-Mark-Mwigo"),
-            const SizedBox(width: 32),
-            _socialLink("GitHub/infinite-dev22"),
-          ],
+        ResponsiveLayout(
+          mobile: Column(
+            spacing: 16,
+            children: [
+              _socialLink("LinkedIn/Jonathan-Mark-Mwigo"),
+              _socialLink("GitHub/infinite-dev22"),
+            ],
+          ),
+          tablet: Row(
+            spacing: 32,
+            children: [
+              _socialLink("LinkedIn/Jonathan-Mark-Mwigo"),
+              _socialLink("GitHub/infinite-dev22"),
+            ],
+          ),
+          desktop: Row(
+            spacing: 32,
+            children: [
+              _socialLink("LinkedIn/Jonathan-Mark-Mwigo"),
+              _socialLink("GitHub/infinite-dev22"),
+            ],
+          ),
         ),
       ],
     );
@@ -168,8 +185,7 @@ class FooterSection extends StatelessWidget {
           const SizedBox(height: 16),
           SizedBox(
             width: double.infinity,
-            child:
-            FilledButton(
+            child: FilledButton(
               onPressed: () {},
               child: Text("Send Message", style: GoogleFonts.jetBrainsMono()),
             ),
