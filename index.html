@@ -1,11 +1,24 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
   <base href="/my-portfolio/">
 
   <meta charset="UTF-8">
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
-  <meta name="description" content="Jonathan Mark Mwigo - Senior Systems Engineer Portfolio">
+  <meta name="description" content="A new Flutter project.">
 
   <!-- iOS meta tags & icons -->
   <meta name="mobile-web-app-capable" content="yes">
@@ -14,323 +27,20 @@
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
   <!-- Favicon -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon.png">
-  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+  <link rel="icon" type="image/png" href="favicon.png"/>
 
-  <title>Jonathan Mark Mwigo</title>
+  <title>portfolio_app</title>
   <link rel="manifest" href="manifest.json">
-
-  <style>
-    body {
-      margin: 0;
-      background: #020617;
-    }
-
-    #boot-loader {
-      position: fixed;
-      inset: 0;
-      background: radial-gradient(circle at top, #0f172a, #020617);
-      color: #e2e8f0;
-      font-family: "JetBrains Mono", monospace;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      overflow: hidden;
-    }
-
-    #boot-loader::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: repeating-linear-gradient(
-        to bottom,
-        rgba(255,255,255,0.02),
-        rgba(255,255,255,0.02) 1px,
-        transparent 1px,
-        transparent 3px
-      );
-      pointer-events: none;
-    }
-
-    .boot-container { width: min(760px, 95%); }
-
-    .boot-title {
-      color: #38bdf8;
-      margin-bottom: 12px;
-      letter-spacing: 2px;
-      font-size: 14px;
-    }
-
-    .ascii {
-      color: #f97316;
-      font-size: 11px;
-      line-height: 1.2;
-      margin-bottom: 14px;
-      white-space: pre;
-    }
-
-    .boot-log { font-size: 13px; line-height: 1.6; min-height: 220px; }
-    .boot-line { white-space: pre; }
-
-    .reliability { color: #22c55e; font-weight: 600; }
-    .nominal { color: #22c55e; font-weight: 700; }
-    .latency { color: #38bdf8; }
-    .error { color: #f97316; }
-
-    .boot-progress {
-      margin-top: 14px;
-      height: 6px;
-      background: #1e293b;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-
-    .boot-bar {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #38bdf8, #f97316);
-      transition: width 0.2s ease;
-    }
-
-    .telemetry {
-      margin-top: 14px;
-      font-size: 12px;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-    }
-
-    .meter {
-      background: #020617;
-      border: 1px solid #1e293b;
-      padding: 6px;
-      border-radius: 4px;
-    }
-
-    .meter-bar {
-      height: 4px;
-      background: #1e293b;
-      margin-top: 4px;
-      overflow: hidden;
-      border-radius: 2px;
-    }
-
-    .meter-fill {
-      height: 100%;
-      width: 0%;
-      background: #38bdf8;
-      transition: width 0.25s ease;
-    }
-
-    .boot-time { margin-top: 10px; font-size: 12px; color: #22c55e; }
-
-    .disk {
-      display: inline-block;
-      margin-left: 6px;
-      color: #38bdf8;
-      animation: blink 0.8s steps(2, start) infinite;
-    }
-
-    .handshake {
-      position: absolute;
-      bottom: 20px;
-      left: 0;
-      width: 100%;
-      height: 2px;
-      overflow: hidden;
-    }
-
-    .packet {
-      position: absolute;
-      width: 6px;
-      height: 2px;
-      background: #38bdf8;
-      animation: movePacket 2s linear infinite;
-      opacity: 0.7;
-    }
-
-    .packet:nth-child(2) { animation-delay: 0.4s; background: #f97316; }
-    .packet:nth-child(3) { animation-delay: 0.8s; }
-    .packet:nth-child(4) { animation-delay: 1.2s; background: #22c55e; }
-
-    @keyframes movePacket {
-      from { left: -10px; }
-      to { left: 100%; }
-    }
-
-    @keyframes blink {
-      to { visibility: hidden; }
-    }
-
-    .fade-out {
-      animation: fadeOut 0.6s forwards;
-    }
-
-    @keyframes fadeOut {
-      to { opacity: 0; visibility: hidden; }
-    }
-  </style>
 </head>
-
 <body>
-  <div id="boot-loader">
-    <div class="boot-container">
-      <div class="boot-title">NOMARD INC. :: SYSTEM BOOT</div>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
 
-      <div class="ascii">
-   _   _                           _ 
-  | \ | | ___  _ __ ___   __ _  __| |
-  |  \| |/ _ \| '_ ` _ \ / _` |/ _` |
-  | |\  | (_) | | | | | | (_| | (_| |
-  |_| \_|\___/|_| |_| |_|\__,_|\__,_|
-      </div>
-
-      <div class="boot-line reliability" id="cluster">[ CLSTR ] Initializing nodes...</div>
-      <div class="boot-line" id="features">[ FLAG  ] Validating feature toggles...</div>
-
-      <div class="boot-log" id="boot-log"></div>
-
-      <div class="boot-progress">
-        <div class="boot-bar" id="boot-bar"></div>
-      </div>
-
-      <div class="boot-time" id="boot-time"></div>
-    </div>
-
-    <div class="handshake">
-      <div class="packet"></div>
-      <div class="packet"></div>
-      <div class="packet"></div>
-      <div class="packet"></div>
-    </div>
-  </div>
-
-  <!-- <script src="flutter.js" defer></script> -->
-  
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
   <script src="flutter_bootstrap.js" async></script>
-
-  <script>
-    const start = performance.now();
-
-    const lines = [
-      "[ INIT ] Nomard Core Runtime v3.2",
-      "[ OK   ] JVM high-throughput engine",
-      "[ OK   ] Rust async executor (Actix)",
-      "[ OK   ] Reactive UI compositor",
-      "[ OK   ] Distributed cache warmup",
-      "[ METR ] Reliability: 99.99% uptime",
-      "[ METR ] Latency: <100ms p95",
-      "[ METR ] Error rate: 0.01%",
-      "[ LOAD ] 10,000 req/min profile",
-      "[ AUTH ] Jonathan Mark Mwigo",
-      "[ ROLE ] Senior Systems Architect",
-      "[ OK   ] ALL SYSTEMS NOMINAL"
-    ];
-
-    const log = document.getElementById("boot-log");
-    const bar = document.getElementById("boot-bar");
-
-    let lineIndex = 0;
-    let charIndex = 0;
-    let currentLineEl = null;
-
-    function randomDelay(min, max) {
-      return Math.floor(Math.random() * (max - min) + min);
-    }
-
-    function typeChar() {
-      if (lineIndex >= lines.length) return;
-
-      const text = lines[lineIndex];
-
-      if (!currentLineEl) {
-        currentLineEl = document.createElement("div");
-        currentLineEl.className = "boot-line";
-        log.appendChild(currentLineEl);
-      }
-
-      currentLineEl.textContent = text.substring(0, charIndex);
-      charIndex++;
-
-      if (charIndex <= text.length) {
-        setTimeout(typeChar, randomDelay(10, 30));
-      } else {
-        styleLine(currentLineEl, text);
-        currentLineEl = null;
-        charIndex = 0;
-        lineIndex++;
-
-        bar.style.width = (lineIndex / lines.length) * 100 + "%";
-
-        setTimeout(typeChar, randomDelay(80, 160));
-      }
-    }
-
-    function styleLine(el, text) {
-      if (text.includes("Reliability")) el.classList.add("reliability");
-      if (text.includes("Latency")) el.classList.add("latency");
-      if (text.includes("Error rate")) el.classList.add("error");
-      if (text.includes("ALL SYSTEMS NOMINAL")) el.classList.add("nominal");
-    }
-
-    typeChar();
-
-    // cluster simulation
-    const clusterEl = document.getElementById("cluster");
-    let nodes = 0;
-
-    function bringNodeOnline() {
-      nodes++;
-      clusterEl.textContent = `[ CLSTR ] Node-${nodes} online`;
-
-      if (nodes < 3) {
-        setTimeout(bringNodeOnline, randomDelay(300, 700));
-      } else {
-        clusterEl.textContent = "[ CLSTR ] 3 nodes online (healthy quorum)";
-        clusterEl.classList.add("reliability");
-      }
-    }
-    setTimeout(bringNodeOnline, 700);
-
-    // feature flags
-    const featuresEl = document.getElementById("features");
-    const flags = ["SSE", "HTTP/3", "Edge Cache", "A/B Routing"];
-    let flagIndex = 0;
-
-    function validateFlag() {
-      if (flagIndex < flags.length) {
-        featuresEl.textContent = `[ FLAG  ] ${flags[flagIndex]} enabled ✔`;
-        flagIndex++;
-        setTimeout(validateFlag, randomDelay(180, 320));
-      } else {
-        featuresEl.textContent = "[ FLAG  ] All feature toggles verified";
-        featuresEl.classList.add("reliability");
-      }
-    }
-    setTimeout(validateFlag, 1400);
-
-    // disk indicator
-    const disk = document.createElement("span");
-    disk.textContent = "●";
-    disk.className = "disk";
-    document.querySelector(".boot-title").appendChild(disk);
-
-    // boot time + fade
-    window.addEventListener("flutter-first-frame", function () {
-      const end = performance.now();
-      document.getElementById("boot-time").textContent =
-        "Boot time: " + ((end - start) / 1000).toFixed(2) + "s";
-
-      const loader = document.getElementById("boot-loader");
-    if (loader) {
-      loader.style.opacity = '0';
-      loader.style.transition = 'opacity 0.4s ease';
-      setTimeout(() => loader.remove(), 400);
-    }
-    document.body.style.overflow = 'auto';
-    });
-  </script>
 </body>
 </html>
