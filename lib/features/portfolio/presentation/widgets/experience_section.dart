@@ -14,15 +14,16 @@ class ExperienceSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        return Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: ResponsiveLayout.isMobile(context) ? 20 : 100,
-            vertical: 80,
-          ),
-          decoration: BoxDecoration(color: AppColors.experienceBackground),
-          child: Column(
+    return Container(
+      // width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(
+        horizontal: ResponsiveLayout.isMobile(context) ? 20 : 100,
+        vertical: 80,
+      ),
+      decoration: BoxDecoration(color: AppColors.experienceBackground),
+      child: LayoutBuilder(
+        builder: (context, constraints) {
+          return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
@@ -56,11 +57,11 @@ class ExperienceSection extends StatelessWidget {
                       spacing: 24,
                       children: [
                         Expanded(
-                          flex: 4,
+                          flex: 5,
                           child: _CurrentExperienceCard(), // Hyde
                         ),
                         Expanded(
-                          flex: 2,
+                          flex: 3,
                           child: _PreviousExperienceCard(), // Infosec
                         ),
                       ],
@@ -83,9 +84,9 @@ class ExperienceSection extends StatelessWidget {
                 ),
               ),
             ],
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }
@@ -95,73 +96,90 @@ class PhilosophyCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(builder: (context, constraints) => Container(
-      constraints: BoxConstraints(minHeight: 350),
-      decoration: ShapeDecoration(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [Color(0xFF0c2643), Color(0xFF111827), Color(0xFF221a17)],
-          stops: [0.0, 0.5, 1.0],
+    return LayoutBuilder(
+      builder: (context, constraints) => Container(
+        constraints: BoxConstraints(minHeight: 350),
+        decoration: ShapeDecoration(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(24),
+          ),
+          gradient: const LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [Color(0xFF0c2643), Color(0xFF111827), Color(0xFF221a17)],
+            stops: [0.0, 0.5, 1.0],
+          ),
         ),
-      ),
-      padding: const EdgeInsets.all(60),
-      child: SizedBox(
-        height: constraints.minHeight,
-        child: Stack(
-          children: [
-            // Watermark text (behind content)
-            Positioned.fill(
-              child: Center(
-                child: Text(
-                  "SCALE",
-                  style: GoogleFonts.jetBrainsMono(
-                    color: Colors.white12,
-                    fontSize: 33.sp,
-                    letterSpacing: 2.0,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,
+        padding: const EdgeInsets.all(60),
+        child: SizedBox(
+          height: constraints.minHeight,
+          child: Stack(
+            children: [
+              // Watermark text (behind content)
+              Positioned.fill(
+                child: Center(
+                  child: Text(
+                    "SCALE",
+                    style: GoogleFonts.jetBrainsMono(
+                      color: Colors.white12,
+                      fontSize: ResponsiveLayout.isMobile(context)
+                          ? 80
+                          : ResponsiveLayout.isTablet(context)
+                          ? 150
+                          : 200,
+                      letterSpacing: 2.0,
+                      fontStyle: FontStyle.italic,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ),
-            ),
-            // Primary content (centered)
-            Positioned.fill(
-              child: Center(
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text(
-                      "LEADERSHIP PHILOSOPHY",
-                      style: GoogleFonts.jetBrainsMono(
-                        color: Colors.white54,
-                        fontSize: 18,
-                        letterSpacing: 2.0,
-                        fontWeight: FontWeight.w400,
+              // Primary content (centered)
+              Positioned.fill(
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        "LEADERSHIP PHILOSOPHY",
+                        style: GoogleFonts.jetBrainsMono(
+                          color: Colors.white54,
+                          fontSize: ResponsiveLayout.isMobile(context)
+                              ? 12
+                              : ResponsiveLayout.isTablet(context)
+                              ? 16
+                              : 12.sp,
+                          letterSpacing: 2.0,
+                          fontWeight: FontWeight.w400,
+                          fontStyle: FontStyle.italic,
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 24),
-                    Text(
-                      '"Infrastructure is useless\nwithout a culture that knows\nhow to maintain it."',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.jetBrainsMono(
-                        color: Colors.white,
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.bold,
-                        fontStyle: FontStyle.italic,
-                        height: 1.4,
+                      const SizedBox(height: 24),
+                      Text(
+                        '"Infrastructure is useless without a culture that knows how to maintain it."',
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jetBrainsMono(
+                          color: Colors.white,
+                          fontSize: ResponsiveLayout.isMobile(context)
+                              ? 20
+                              : ResponsiveLayout.isTablet(context)
+                              ? 38
+                              : 18.sp,
+                          fontWeight: FontWeight.bold,
+                          fontStyle: FontStyle.italic,
+                          height: 1.2,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
-    ),);
+    );
   }
 }
 
@@ -201,96 +219,102 @@ class _CurrentExperienceCardState extends State<_CurrentExperienceCard> {
           spacing: 80,
           children: [
             Column(
-              crossAxisAlignment: .start,
-              spacing: 8,
+              spacing: 30,
               children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.baseline,
-                  textBaseline: TextBaseline.alphabetic,
+                Column(
+                  crossAxisAlignment: .start,
+                  spacing: 8,
                   children: [
-                    Flexible(
-                      child: Text(
-                        "Hyde Innovations",
-                        style: GoogleFonts.jetBrainsMono(
-                          color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: .bold,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            "Hyde Innovations",
+                            style: GoogleFonts.jetBrainsMono(
+                              color: Colors.white,
+                              fontSize: 20,
+                              fontWeight: .bold,
+                            ),
+                          ),
                         ),
-                      ),
+                        Text(
+                          "2024 - PRESENT",
+                          style: GoogleFonts.jetBrainsMono(
+                            color: AppColors.textSecondary,
+                          ),
+                        ),
+                      ],
                     ),
                     Text(
-                      "2024 - PRESENT",
+                      "Senior Lead Mobile & Backend",
                       style: GoogleFonts.jetBrainsMono(
-                        color: AppColors.textSecondary,
+                        color: AppColors.primary,
+                        fontWeight: .w500,
                       ),
                     ),
                   ],
                 ),
-                Text(
-                  "Senior Lead Mobile & Backend",
-                  style: GoogleFonts.jetBrainsMono(
-                    color: AppColors.primary,
-                    fontWeight: .w500,
+                RichText(
+                  text: TextSpan(
+                    style: GoogleFonts.jetBrainsMono(
+                      color: AppColors.textPrimary,
+                      fontSize: 16,
+                      fontWeight: .bold,
+                      height: 1.1,
+                    ),
+                    children: [
+                      TextSpan(
+                        text:
+                            "Architecting mission-critical infrastructure using ",
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 16,
+                          fontWeight: .w200,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Kotlin",
+                        style: TextStyle(fontWeight: .bold),
+                      ),
+                      TextSpan(
+                        text: ", ",
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 16,
+                          fontWeight: .w200,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Flutter",
+                        style: TextStyle(fontWeight: .bold),
+                      ),
+                      TextSpan(
+                        text: ", and ",
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontSize: 16,
+                          fontWeight: .w200,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Rust/Actix",
+                        style: TextStyle(fontWeight: .bold),
+                      ),
+                      TextSpan(
+                        text:
+                            ". Focused on creating resilient backend systems that support low-latency mobile interactions.",
+                        style: TextStyle(
+                          color: AppColors.textSecondary,
+                          fontWeight: .w200,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
               ],
-            ),
-            RichText(
-              text: TextSpan(
-                style: GoogleFonts.jetBrainsMono(
-                  color: AppColors.textPrimary,
-                  fontSize: 16,
-                  fontWeight: .bold,
-                  height: 1.1,
-                ),
-                children: [
-                  TextSpan(
-                    text: "Architecting mission-critical infrastructure using ",
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: .w200,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "Kotlin",
-                    style: TextStyle(fontWeight: .bold),
-                  ),
-                  TextSpan(
-                    text: ", ",
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: .w200,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "Flutter",
-                    style: TextStyle(fontWeight: .bold),
-                  ),
-                  TextSpan(
-                    text: ", ",
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontSize: 16,
-                      fontWeight: .w200,
-                    ),
-                  ),
-                  TextSpan(
-                    text: "Rust/Actix",
-                    style: TextStyle(fontWeight: .bold),
-                  ),
-                  TextSpan(
-                    text:
-                        ". Focused on creating resilient backend systems that support low-latency mobile interactions.",
-                    style: TextStyle(
-                      color: AppColors.textSecondary,
-                      fontWeight: .w200,
-                    ),
-                  ),
-                ],
-              ),
             ),
             Wrap(
               spacing: 8,
@@ -364,7 +388,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          spacing: 16,
+          spacing: 12,
           children: [
             Column(
               spacing: 8,
@@ -399,6 +423,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
               children: [
                 Row(
                   mainAxisSize: .min,
+                  crossAxisAlignment: .start,
                   spacing: 8,
                   children: [
                     Icon(
@@ -411,7 +436,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                         "Managed a 3-person core development team.",
                         style: GoogleFonts.inter(
                           color: AppColors.textSecondary,
-                          fontSize: 16,
+                          fontSize: 14,
                           height: 1.6,
                         ),
                       ),
@@ -421,6 +446,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                 Row(
                   spacing: 8,
                   mainAxisSize: .min,
+                  crossAxisAlignment: .start,
                   children: [
                     Icon(
                       MingCute.check_circle_fill,
@@ -432,7 +458,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                         "Reduced production bugs by 30% via CI/CD pipelines.",
                         style: GoogleFonts.inter(
                           color: AppColors.textSecondary,
-                          fontSize: 16,
+                          fontSize: 14,
                           height: 1.6,
                         ),
                       ),
