@@ -67,7 +67,7 @@ class PortfolioCodeEditor extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.editorTitle,
-                    fontSize: context.responsiveBodyMedium,
+                    fontSize: context.responsiveBodySmall,
                   ),
                 ),
               ],

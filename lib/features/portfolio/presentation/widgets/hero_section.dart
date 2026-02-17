@@ -195,7 +195,7 @@ class _HeroSectionState extends State<HeroSection> {
               label: Text(
                 "View Systems",
                 style: GoogleFonts.jetBrainsMono(
-                  fontSize: context.responsiveBodyMedium,
+                  fontSize: context.responsiveBodySmall,
                 ),
               ),
             ),
@@ -209,7 +209,7 @@ class _HeroSectionState extends State<HeroSection> {
               label: Text(
                 "Download Resume",
                 style: GoogleFonts.jetBrainsMono(
-                  fontSize: context.responsiveBodyMedium,
+                  fontSize: context.responsiveBodySmall,
                 ),
               ),
             ),
@@ -227,7 +227,7 @@ class _HeroSectionState extends State<HeroSection> {
           child: Text.rich(
             _highlightedCode,
             style: GoogleFonts.jetBrainsMono(
-              fontSize: context.responsiveBodyMedium,
+              fontSize: context.responsiveBodySmall,
             ),
           ),
         ),

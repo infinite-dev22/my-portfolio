@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_app/core/utils/responsive_text.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -93,14 +92,11 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                         ),
                         Text(
                           'zsh - mwigo@systems-lead',
+                          softWrap: true,
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jetBrainsMono(
                             color: AppColors.terminalTitle,
-                            fontSize: ResponsiveLayout.isMobile(context)
-                                ? 7.sp
-                                : ResponsiveLayout.isTablet(context)
-                                ? 9.sp
-                                : 9.5.sp,
+                            fontSize: context.responsiveBodySmall,
                           ),
                         ),
                         const SizedBox(width: 40), // Balance the icons
@@ -111,11 +107,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jetBrainsMono(
                         color: AppColors.terminalHeadActive,
-                        fontSize: ResponsiveLayout.isMobile(context)
-                            ? 7.sp
-                            : ResponsiveLayout.isTablet(context)
-                            ? 9.sp
-                            : 9.5.sp,
+                        fontSize: context.responsiveBodySmall,
                         fontWeight: FontWeight.w100,
                       ),
                     ),
@@ -139,7 +131,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                     RichText(
                       text: TextSpan(
                         style: GoogleFonts.jetBrainsMono(
-                          fontSize: context.responsiveBodyMedium,
+                          fontSize: context.responsiveBodySmall,
                           height: 1.6,
                           color: Colors.white,
                         ),

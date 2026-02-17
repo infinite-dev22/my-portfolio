@@ -116,7 +116,7 @@ class _NavBarState extends State<NavBar> {
               child: Text(
                 "Resume.pdf",
                 style: GoogleFonts.jetBrainsMono(
-                  fontSize: context.responsiveBodyMedium,
+                  fontSize: context.responsiveBodySmall,
                 ),
               ),
             ),
@@ -152,7 +152,7 @@ class _NavItemState extends State<NavItem> {
             widget.title,
             style: GoogleFonts.jetBrainsMono(
               color: isHovered ? AppColors.primary : Colors.white54,
-              fontSize: context.responsiveBodyMedium,
+              fontSize: context.responsiveBodySmall,
               fontWeight: FontWeight.w500,
             ),
           ),
