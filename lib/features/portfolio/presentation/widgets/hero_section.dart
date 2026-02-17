@@ -133,20 +133,16 @@ class _HeroSectionState extends State<HeroSection> {
           text: TextSpan(
             style: GoogleFonts.jetBrainsMono(
               color: Colors.white,
-              fontSize: ResponsiveLayout.isMobile(context) ? 32 : 56,
+              fontSize: ResponsiveLayout.isMobile(context)
+                  ? 7.sp
+                  : ResponsiveLayout.isTablet(context)
+                  ? 9.sp
+                  : 20.2.sp,
               fontWeight: FontWeight.bold,
               height: 1.1,
             ),
             children: [
-              TextSpan(
-                text: "${widget.profile.name}: ",
-                style: GoogleFonts.jetBrainsMono(
-                  color: Colors.white,
-                  fontSize: ResponsiveLayout.isMobile(context) ? 32 : 56,
-                  fontWeight: FontWeight.bold,
-                  height: 1.1,
-                ),
-              ),
+              TextSpan(text: "${widget.profile.name}: "),
               const TextSpan(
                 text: "I Build Systems That Scale ",
                 style: TextStyle(color: AppColors.primary),
@@ -160,8 +156,11 @@ class _HeroSectionState extends State<HeroSection> {
           text: TextSpan(
             style: GoogleFonts.jetBrainsMono(
               color: Colors.white,
-              fontSize: ResponsiveLayout.isMobile(context) ? 16 : 16,
-              fontWeight: FontWeight.bold,
+              fontSize: ResponsiveLayout.isMobile(context)
+                  ? 7.sp
+                  : ResponsiveLayout.isTablet(context)
+                  ? 9.sp
+                  : 12.sp,
               height: 1.1,
             ),
             children: [
@@ -192,7 +191,16 @@ class _HeroSectionState extends State<HeroSection> {
               iconAlignment: IconAlignment.end,
               onPressed: () {},
               icon: const Icon(Icons.insert_chart_rounded, size: 18),
-              label: Text("View Systems", style: GoogleFonts.jetBrainsMono()),
+              label: Text(
+                "View Systems",
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: ResponsiveLayout.isMobile(context)
+                      ? 7.sp
+                      : ResponsiveLayout.isTablet(context)
+                      ? 9.sp
+                      : 10.sp,
+                ),
+              ),
             ),
             const SizedBox(width: 24),
             OutlinedButton.icon(
@@ -208,7 +216,7 @@ class _HeroSectionState extends State<HeroSection> {
                       ? 7.sp
                       : ResponsiveLayout.isTablet(context)
                       ? 9.sp
-                      : 10.5.sp,
+                      : 10.sp,
                 ),
               ),
             ),
@@ -225,7 +233,13 @@ class _HeroSectionState extends State<HeroSection> {
           fileName: "ArchitectureV3.java",
           child: Text.rich(
             _highlightedCode,
-            style: GoogleFonts.jetBrainsMono(),
+            style: GoogleFonts.jetBrainsMono(
+              fontSize: ResponsiveLayout.isMobile(context)
+                  ? 7.sp
+                  : ResponsiveLayout.isTablet(context)
+                  ? 9.sp
+                  : 10.sp,
+            ),
           ),
         ),
         Positioned(bottom: 20, right: 20, child: _PacketTraffic()),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_app/core/theme/app_colors.dart';
+import 'package:portfolio_app/core/utils/responsive.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 class PortfolioCodeEditor extends StatelessWidget {
   final String fileName;
@@ -66,7 +68,11 @@ class PortfolioCodeEditor extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.editorTitle,
-                    fontSize: 12,
+                    fontSize: ResponsiveLayout.isMobile(context)
+                        ? 7.sp
+                        : ResponsiveLayout.isTablet(context)
+                        ? 9.sp
+                        : 10.sp,
                   ),
                 ),
               ],
@@ -83,11 +89,7 @@ class PortfolioCodeEditor extends StatelessWidget {
               border: Border.all(color: Colors.white10),
               color: AppColors.editorBody,
             ),
-            child: Row(
-              children: [
-                child,
-              ],
-            ),
+            child: Expanded(child: Row(children: [child])),
           ),
         ],
       ),
