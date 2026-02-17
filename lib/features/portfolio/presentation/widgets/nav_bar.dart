@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/utils/responsive.dart';
 import '../../../../core/utils/file_downloader.dart';
+import '../../../../core/utils/responsive.dart';
 
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
@@ -46,8 +47,15 @@ class _NavBarState extends State<NavBar> {
                 AnimatedRotation(
                   turns: _turns,
                   duration: const Duration(milliseconds: 300),
-                  child: const Icon(
-                      Icons.terminal, color: AppColors.primary, size: 24),
+                  child: Icon(
+                    Icons.terminal,
+                    color: AppColors.primary,
+                    size: ResponsiveLayout.isMobile(context)
+                        ? 0.07.dp
+                        : ResponsiveLayout.isTablet(context)
+                        ? 0.08.dp
+                        : 0.09.dp,
+                  ),
                 ),
                 const SizedBox(width: 8),
                 RichText(
@@ -55,15 +63,18 @@ class _NavBarState extends State<NavBar> {
                     style: GoogleFonts.jetBrainsMono(
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
-                      fontSize: 18,
                       letterSpacing: 1.2,
+                      fontSize: ResponsiveLayout.isMobile(context)
+                          ? 7.sp
+                          : ResponsiveLayout.isTablet(context)
+                          ? 9.sp
+                          : 11.sp,
                     ),
                     children: [
                       TextSpan(
                         text: "JVM ",
                         style: GoogleFonts.jetBrainsMono(
                           color: Colors.white,
-                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           height: 1.1,
                         ),
@@ -72,7 +83,6 @@ class _NavBarState extends State<NavBar> {
                         text: "_SYS",
                         style: GoogleFonts.jetBrainsMono(
                           color: AppColors.primary,
-                          fontSize: 18,
                           fontWeight: FontWeight.bold,
                           height: 1.1,
                         ),
@@ -99,8 +109,19 @@ class _NavBarState extends State<NavBar> {
             )
           else
             FilledButton(
-              onPressed: () => downloadFile('assets/documents/JONATHAN_MARK_MWIGO_RESUME.pdf'),
-              child: Text("Resume.pdf", style: GoogleFonts.jetBrainsMono()),
+              onPressed: () => downloadFile(
+                'assets/documents/JONATHAN_MARK_MWIGO_RESUME.pdf',
+              ),
+              child: Text(
+                "Resume.pdf",
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: ResponsiveLayout.isMobile(context)
+                      ? 7.sp
+                      : ResponsiveLayout.isTablet(context)
+                      ? 9.sp
+                      : 10.sp,
+                ),
+              ),
             ),
         ],
       ),
@@ -133,10 +154,12 @@ class _NavItemState extends State<NavItem> {
           child: Text(
             widget.title,
             style: GoogleFonts.jetBrainsMono(
-              color: isHovered
-                  ? AppColors.primary
-                  : Colors.white54,
-              fontSize: 12,
+              color: isHovered ? AppColors.primary : Colors.white54,
+              fontSize: ResponsiveLayout.isMobile(context)
+                  ? 8.sp
+                  : ResponsiveLayout.isTablet(context)
+                  ? 9.sp
+                  : 10.sp,
               fontWeight: FontWeight.w500,
             ),
           ),

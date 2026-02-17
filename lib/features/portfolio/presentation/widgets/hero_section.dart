@@ -3,11 +3,12 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio_app/core/ui/background_pattern.dart';
 import 'package:portfolio_app/features/portfolio/presentation/widgets/code_editor.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
 import '../../../../core/theme/app_colors.dart';
-import '../../../../core/utils/responsive.dart';
 import '../../../../core/utils/file_downloader.dart';
+import '../../../../core/utils/responsive.dart';
 import '../../domain/entities/portfolio_entities.dart';
 
 class HeroSection extends StatefulWidget {
@@ -115,7 +116,11 @@ class _HeroSectionState extends State<HeroSection> {
                 'SYSTEM_STATUS: ACTIVE',
                 style: GoogleFonts.jetBrainsMono(
                   color: AppColors.primary,
-                  fontSize: 10,
+                  fontSize: ResponsiveLayout.isMobile(context)
+                      ? 7.sp
+                      : ResponsiveLayout.isTablet(context)
+                      ? 9.sp
+                      : 9.sp,
                   fontWeight: FontWeight.bold,
                   letterSpacing: 1.2,
                 ),
@@ -192,11 +197,19 @@ class _HeroSectionState extends State<HeroSection> {
             const SizedBox(width: 24),
             OutlinedButton.icon(
               iconAlignment: IconAlignment.end,
-              onPressed: () => downloadFile('assets/documents/JONATHAN_MARK_MWIGO_RESUME.pdf'),
+              onPressed: () => downloadFile(
+                'assets/documents/JONATHAN_MARK_MWIGO_RESUME.pdf',
+              ),
               icon: Icon(MingCute.download_2_line, size: 18),
               label: Text(
                 "Download Resume",
-                style: GoogleFonts.jetBrainsMono(),
+                style: GoogleFonts.jetBrainsMono(
+                  fontSize: ResponsiveLayout.isMobile(context)
+                      ? 7.sp
+                      : ResponsiveLayout.isTablet(context)
+                      ? 9.sp
+                      : 10.5.sp,
+                ),
               ),
             ),
           ],
