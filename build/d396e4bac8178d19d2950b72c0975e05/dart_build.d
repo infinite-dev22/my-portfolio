@@ -1,0 +1,1 @@
+ /home/infinite/WebProjects/portfolio_app/build/d396e4bac8178d19d2950b72c0975e05/dart_build_result.json:  /home/infinite/.development/flutter/bin/cache/dart-sdk/version /home/infinite/WebProjects/portfolio_app/.dart_tool/package_config.json /home/infinite/WebProjects/portfolio_app/pubspec.yaml
