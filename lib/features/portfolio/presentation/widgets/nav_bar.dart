@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_app/core/utils/responsive_text.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -115,11 +116,7 @@ class _NavBarState extends State<NavBar> {
               child: Text(
                 "Resume.pdf",
                 style: GoogleFonts.jetBrainsMono(
-                  fontSize: ResponsiveLayout.isMobile(context)
-                      ? 7.sp
-                      : ResponsiveLayout.isTablet(context)
-                      ? 9.sp
-                      : 10.sp,
+                  fontSize: context.responsiveBodyMedium,
                 ),
               ),
             ),
@@ -155,11 +152,7 @@ class _NavItemState extends State<NavItem> {
             widget.title,
             style: GoogleFonts.jetBrainsMono(
               color: isHovered ? AppColors.primary : Colors.white54,
-              fontSize: ResponsiveLayout.isMobile(context)
-                  ? 8.sp
-                  : ResponsiveLayout.isTablet(context)
-                  ? 9.sp
-                  : 10.sp,
+              fontSize: context.responsiveBodyMedium,
               fontWeight: FontWeight.w500,
             ),
           ),

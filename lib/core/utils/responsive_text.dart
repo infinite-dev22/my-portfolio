@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+
 import 'responsive.dart';
 
 extension ResponsiveText on BuildContext {
@@ -32,9 +34,17 @@ extension ResponsiveText on BuildContext {
       ? 24
       : 28;
 
-  double get responsiveBodyLarge => ResponsiveLayout.isMobile(this) ? 16 : 18;
+  double get responsiveBodyLarge => ResponsiveLayout.isMobile(this)
+      ? 7.sp
+      : ResponsiveLayout.isTablet(this)
+      ? 9.sp
+      : 11.5.sp; // 18
 
-  double get responsiveBodyMedium => ResponsiveLayout.isMobile(this) ? 14 : 16;
+  double get responsiveBodyMedium => ResponsiveLayout.isMobile(this)
+      ? 7.sp
+      : ResponsiveLayout.isTablet(this)
+      ? 9.sp
+      : 10.sp;
 
   double get responsiveBodySmall => ResponsiveLayout.isMobile(this) ? 12 : 14;
 

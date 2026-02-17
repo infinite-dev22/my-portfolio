@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio_app/core/ui/background_pattern.dart';
+import 'package:portfolio_app/core/utils/responsive_text.dart';
 import 'package:portfolio_app/features/portfolio/presentation/widgets/code_editor.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
@@ -194,11 +195,7 @@ class _HeroSectionState extends State<HeroSection> {
               label: Text(
                 "View Systems",
                 style: GoogleFonts.jetBrainsMono(
-                  fontSize: ResponsiveLayout.isMobile(context)
-                      ? 7.sp
-                      : ResponsiveLayout.isTablet(context)
-                      ? 9.sp
-                      : 10.sp,
+                  fontSize: context.responsiveBodyMedium,
                 ),
               ),
             ),
@@ -212,11 +209,7 @@ class _HeroSectionState extends State<HeroSection> {
               label: Text(
                 "Download Resume",
                 style: GoogleFonts.jetBrainsMono(
-                  fontSize: ResponsiveLayout.isMobile(context)
-                      ? 7.sp
-                      : ResponsiveLayout.isTablet(context)
-                      ? 9.sp
-                      : 10.sp,
+                  fontSize: context.responsiveBodyMedium,
                 ),
               ),
             ),
@@ -234,11 +227,7 @@ class _HeroSectionState extends State<HeroSection> {
           child: Text.rich(
             _highlightedCode,
             style: GoogleFonts.jetBrainsMono(
-              fontSize: ResponsiveLayout.isMobile(context)
-                  ? 7.sp
-                  : ResponsiveLayout.isTablet(context)
-                  ? 9.sp
-                  : 10.sp,
+              fontSize: context.responsiveBodyMedium,
             ),
           ),
         ),
