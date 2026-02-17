@@ -35,22 +35,34 @@ extension ResponsiveText on BuildContext {
       : 28;
 
   double get responsiveBodyLarge => ResponsiveLayout.isMobile(this)
-      ? 7.sp
+      ? 7.sp // 16
       : ResponsiveLayout.isTablet(this)
       ? 9.sp
       : 11.5.sp; // 18
 
   double get responsiveBodyMedium => ResponsiveLayout.isMobile(this)
-      ? 7.sp
+      ? 7.sp // 14
       : ResponsiveLayout.isTablet(this)
       ? 9.sp
-      : 10.sp;
+      : 10.sp; // 16
 
-  double get responsiveBodySmall => ResponsiveLayout.isMobile(this) ? 12 : 14;
+  double get responsiveBodySmall => ResponsiveLayout.isMobile(this)
+      ? 7.sp // 12
+      : ResponsiveLayout.isTablet(this)
+      ? 9.sp
+      : 9.5.sp; // 14
 
-  double get responsiveLabelLarge => ResponsiveLayout.isMobile(this) ? 14 : 16;
+  double get responsiveLabelLarge => ResponsiveLayout.isMobile(this)
+      ? 7.sp // 14
+      : ResponsiveLayout.isTablet(this)
+      ? 9.sp
+      : 10.sp; // 16;
 
-  double get responsiveLabelSmall => ResponsiveLayout.isMobile(this) ? 10 : 12;
+  double get responsiveLabelSmall => ResponsiveLayout.isMobile(this)
+      ? 7.sp // 10
+      : ResponsiveLayout.isTablet(this)
+      ? 9.sp
+      : 9.5.sp; // 12
 
   // Special cases for massive text
   double get responsiveMassive => ResponsiveLayout.isMobile(this)
