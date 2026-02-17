@@ -5,6 +5,7 @@ import 'package:portfolio_app/core/ui/background_pattern.dart';
 import 'package:portfolio_app/core/utils/responsive_text.dart';
 import 'package:portfolio_app/features/portfolio/presentation/widgets/code_editor.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/file_downloader.dart';
@@ -170,7 +171,9 @@ class _HeroSectionState extends State<HeroSection> {
           children: [
             FilledButton.icon(
               iconAlignment: IconAlignment.end,
-              onPressed: () {},
+              onPressed: () => launchUrl(
+                Uri.parse("https://github.com/infinite-dev22?tab=repositories"),
+              ),
               icon: const Icon(Icons.insert_chart_rounded, size: 18),
               label: Text(
                 "View Systems",

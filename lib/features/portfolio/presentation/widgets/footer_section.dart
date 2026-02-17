@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_app/core/utils/responsive_text.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -116,22 +117,22 @@ class FooterSection extends StatelessWidget {
           mobile: Column(
             spacing: 16,
             children: [
-              _socialLink("LinkedIn/Jonathan-Mark-Mwigo", context),
-              _socialLink("GitHub/infinite-dev22", context),
+              SocialLink(label: "LinkedIn/Jonathan-Mark-Mwigo", link: "https://www.linkedin.com/in/jonathan-mark-mwigo"),
+              SocialLink(label: "GitHub/infinite-dev22", link: "https://github.com/infinite-dev22"),
             ],
           ),
           tablet: Row(
             spacing: 32,
             children: [
-              _socialLink("LinkedIn/Jonathan-Mark-Mwigo", context),
-              _socialLink("GitHub/infinite-dev22", context),
+              SocialLink(label: "LinkedIn/Jonathan-Mark-Mwigo", link: "https://www.linkedin.com/in/jonathan-mark-mwigo"),
+              SocialLink(label: "GitHub/infinite-dev22", link: "https://github.com/infinite-dev22"),
             ],
           ),
           desktop: Row(
             spacing: 32,
             children: [
-              _socialLink("LinkedIn/Jonathan-Mark-Mwigo", context),
-              _socialLink("GitHub/infinite-dev22", context),
+              SocialLink(label: "LinkedIn/Jonathan-Mark-Mwigo", link: "https://www.linkedin.com/in/jonathan-mark-mwigo"),
+              SocialLink(label: "GitHub/infinite-dev22", link: "https://github.com/infinite-dev22"),
             ],
           ),
         ),
@@ -195,20 +196,49 @@ class FooterSection extends StatelessWidget {
       ),
     );
   }
+}
 
-  Widget _socialLink(String text, BuildContext context) {
-    return Row(
-      children: [
-        const Icon(Icons.link, color: Colors.white54, size: 16),
-        const SizedBox(width: 8),
-        Text(
-          text,
-          style: GoogleFonts.jetBrainsMono(
-            color: AppColors.textSecondary,
-            fontSize: context.textXsmall,
+class SocialLink extends StatefulWidget {
+  final String label;
+  final String link;
+
+  const SocialLink({super.key, required this.label, required this.link});
+
+  @override
+  State<SocialLink> createState() => _SocialLinkState();
+}
+
+class _SocialLinkState extends State<SocialLink> {
+  bool isHovered = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 10),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (event) => setState(() => isHovered = true),
+        onExit: (event) => setState(() => isHovered = false),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 10),
+          child: GestureDetector(
+            onTap: () => launchUrl(Uri.parse(widget.link)),
+            child: Row(
+              children: [
+                const Icon(Icons.link, color: Colors.white54, size: 16),
+                const SizedBox(width: 8),
+                Text(
+                  widget.label,
+                  style: GoogleFonts.jetBrainsMono(
+                    color: AppColors.textSecondary,
+                    fontSize: context.textXsmall,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
-      ],
+      ),
     );
   }
 }
