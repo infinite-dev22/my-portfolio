@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:portfolio_app/core/utils/responsive_text.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:portfolio_app/core/utils/responsive_widget.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/file_downloader.dart';
@@ -51,11 +51,7 @@ class _NavBarState extends State<NavBar> {
                   child: Icon(
                     Icons.terminal,
                     color: AppColors.primary,
-                    size: ResponsiveLayout.isMobile(context)
-                        ? 0.07.dp
-                        : ResponsiveLayout.isTablet(context)
-                        ? 0.08.dp
-                        : 0.09.dp,
+                    size: context.responsiveSocialIconSize,
                   ),
                 ),
                 const SizedBox(width: 8),
@@ -65,11 +61,7 @@ class _NavBarState extends State<NavBar> {
                       color: Colors.white,
                       fontWeight: FontWeight.bold,
                       letterSpacing: 1.2,
-                      fontSize: ResponsiveLayout.isMobile(context)
-                          ? 7.sp
-                          : ResponsiveLayout.isTablet(context)
-                          ? 9.sp
-                          : 11.sp,
+                      fontSize: context.textLogo,
                     ),
                     children: [
                       TextSpan(
@@ -99,8 +91,10 @@ class _NavBarState extends State<NavBar> {
               children: [
                 NavItem('._systems'),
                 NavItem('._experience'),
-                NavItem('._tech_arsenal'),
-                NavItem('._metrics'),
+                if (MediaQuery.of(context).size.width > 815)
+                  NavItem('._tech_arsenal'),
+                if (MediaQuery.of(context).size.width > 960)
+                  NavItem('._metrics'),
               ],
             ),
           if (ResponsiveLayout.isMobile(context))
@@ -113,11 +107,17 @@ class _NavBarState extends State<NavBar> {
               onPressed: () => downloadFile(
                 'assets/documents/JONATHAN_MARK_MWIGO_RESUME.pdf',
               ),
+              style: ButtonStyle(
+                minimumSize: WidgetStatePropertyAll(
+                  Size(
+                    context.responsiveButtonMinWidth,
+                    context.responsiveButtonHeight,
+                  ),
+                ),
+              ),
               child: Text(
                 "Resume.pdf",
-                style: GoogleFonts.jetBrainsMono(
-                  fontSize: context.responsiveBodySmall,
-                ),
+                style: GoogleFonts.jetBrainsMono(fontSize: context.textButton),
               ),
             ),
         ],
@@ -152,7 +152,7 @@ class _NavItemState extends State<NavItem> {
             widget.title,
             style: GoogleFonts.jetBrainsMono(
               color: isHovered ? AppColors.primary : Colors.white54,
-              fontSize: context.responsiveBodySmall,
+              fontSize: context.textNav,
               fontWeight: FontWeight.w500,
             ),
           ),

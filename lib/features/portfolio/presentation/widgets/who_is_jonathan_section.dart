@@ -83,6 +83,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                   mainAxisAlignment: .spaceBetween,
                   children: [
                     Row(
+                      mainAxisSize: .min,
                       spacing: 20,
                       children: [
                         const Icon(
@@ -96,21 +97,23 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jetBrainsMono(
                             color: AppColors.terminalTitle,
-                            fontSize: context.responsiveBodySmall,
+                            fontSize: context.textXsmall,
                           ),
                         ),
                         const SizedBox(width: 40), // Balance the icons
                       ],
                     ),
-                    Text(
-                      'ACTIVE SESSION',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.jetBrainsMono(
-                        color: AppColors.terminalHeadActive,
-                        fontSize: context.responsiveBodySmall,
-                        fontWeight: FontWeight.w100,
+                    if (!ResponsiveLayout.isMobile(context))
+                      Text(
+                        'ACTIVE SESSION',
+                        softWrap: true,
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.jetBrainsMono(
+                          color: AppColors.terminalHeadActive,
+                          fontSize: context.textXsmall,
+                          fontWeight: FontWeight.w100,
+                        ),
                       ),
-                    ),
                   ],
                 ),
               ),
@@ -131,7 +134,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                     RichText(
                       text: TextSpan(
                         style: GoogleFonts.jetBrainsMono(
-                          fontSize: context.responsiveBodySmall,
+                          fontSize: context.textSmall,
                           height: 1.6,
                           color: Colors.white,
                         ),
@@ -141,12 +144,14 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                             style: GoogleFonts.jetBrainsMono(
                               color: AppColors.secondary,
                               fontWeight: FontWeight.bold,
-                              fontSize: context.responsiveBodyLarge,
+                              fontSize: context.textTerminal,
                             ),
                           ),
                           TextSpan(
                             text: "whois jonathan\n\n",
-                            style: GoogleFonts.jetBrainsMono(),
+                            style: GoogleFonts.jetBrainsMono(
+                              fontSize: context.textTerminal,
+                            ),
                           ),
 
                           TextSpan(
@@ -211,7 +216,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                           style: GoogleFonts.jetBrainsMono(
                             color: AppColors.secondary,
                             fontWeight: FontWeight.bold,
-                            fontSize: context.responsiveBodyLarge,
+                            fontSize: context.textTerminal,
                           ),
                         ),
                         RepaintBoundary(

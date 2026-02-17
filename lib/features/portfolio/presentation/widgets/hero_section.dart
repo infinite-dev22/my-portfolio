@@ -4,7 +4,6 @@ import 'package:icons_plus/icons_plus.dart';
 import 'package:portfolio_app/core/ui/background_pattern.dart';
 import 'package:portfolio_app/core/utils/responsive_text.dart';
 import 'package:portfolio_app/features/portfolio/presentation/widgets/code_editor.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -104,25 +103,14 @@ class _HeroSectionState extends State<HeroSection> {
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              Container(
-                width: 6,
-                height: 6,
-                decoration: const BoxDecoration(
-                  color: AppColors.primary,
-                  shape: BoxShape.circle,
-                ),
-              ),
+              PulsatingDot(),
               const SizedBox(width: 8),
               Text(
                 'SYSTEM_STATUS: ACTIVE',
                 style: GoogleFonts.jetBrainsMono(
                   color: AppColors.primary,
-                  fontSize: ResponsiveLayout.isMobile(context)
-                      ? 7.sp
-                      : ResponsiveLayout.isTablet(context)
-                      ? 9.sp
-                      : 9.sp,
-                  fontWeight: FontWeight.bold,
+                  fontSize: context.textXxsmall,
+                  fontWeight: FontWeight.w200,
                   letterSpacing: 1.2,
                 ),
               ),
@@ -134,11 +122,7 @@ class _HeroSectionState extends State<HeroSection> {
           text: TextSpan(
             style: GoogleFonts.jetBrainsMono(
               color: Colors.white,
-              fontSize: ResponsiveLayout.isMobile(context)
-                  ? 7.sp
-                  : ResponsiveLayout.isTablet(context)
-                  ? 9.sp
-                  : 20.2.sp,
+              fontSize: context.textXxlarge,
               fontWeight: FontWeight.bold,
               height: 1.1,
             ),
@@ -157,11 +141,7 @@ class _HeroSectionState extends State<HeroSection> {
           text: TextSpan(
             style: GoogleFonts.jetBrainsMono(
               color: Colors.white,
-              fontSize: ResponsiveLayout.isMobile(context)
-                  ? 7.sp
-                  : ResponsiveLayout.isTablet(context)
-                  ? 9.sp
-                  : 12.sp,
+              fontSize: context.textXlarge,
               height: 1.1,
             ),
             children: [
@@ -194,9 +174,7 @@ class _HeroSectionState extends State<HeroSection> {
               icon: const Icon(Icons.insert_chart_rounded, size: 18),
               label: Text(
                 "View Systems",
-                style: GoogleFonts.jetBrainsMono(
-                  fontSize: context.responsiveBodySmall,
-                ),
+                style: GoogleFonts.jetBrainsMono(fontSize: context.textButton),
               ),
             ),
             const SizedBox(width: 24),
@@ -208,9 +186,7 @@ class _HeroSectionState extends State<HeroSection> {
               icon: Icon(MingCute.download_2_line, size: 18),
               label: Text(
                 "Download Resume",
-                style: GoogleFonts.jetBrainsMono(
-                  fontSize: context.responsiveBodySmall,
-                ),
+                style: GoogleFonts.jetBrainsMono(fontSize: context.textButton),
               ),
             ),
           ],
@@ -226,19 +202,20 @@ class _HeroSectionState extends State<HeroSection> {
           fileName: "ArchitectureV3.java",
           child: Text.rich(
             _highlightedCode,
-            style: GoogleFonts.jetBrainsMono(
-              fontSize: context.responsiveBodySmall,
-            ),
+            style: GoogleFonts.jetBrainsMono(fontSize: context.textXsmall),
           ),
         ),
-        Positioned(bottom: 20, right: 20, child: _PacketTraffic()),
+        if (!ResponsiveLayout.isMobile(context))
+          Positioned(bottom: 20, right: 20, child: PacketTraffic())
+        else
+          Positioned(top: 55, right: 10, child: PacketTraffic()),
       ],
     );
   }
 }
 
-class _PacketTraffic extends StatelessWidget {
-  const _PacketTraffic({super.key});
+class PacketTraffic extends StatelessWidget {
+  const PacketTraffic({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -288,6 +265,73 @@ class _PacketTraffic extends StatelessWidget {
       width: 15,
       height: height,
       color: color,
+    );
+  }
+}
+
+class PulsatingDot extends StatefulWidget {
+  const PulsatingDot({super.key});
+
+  @override
+  State<PulsatingDot> createState() => _PulsatingDotState();
+}
+
+class _PulsatingDotState extends State<PulsatingDot>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 1500),
+    )..repeat(); // This ensures it restarts from the beginning, creating the "outward" effect
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: _controller,
+      builder: (context, child) {
+        return Stack(
+          alignment: Alignment.center,
+          children: [
+            // The Pulsating Outer Ring
+            Transform.scale(
+              // Animates scale from 1.0 to 3.0
+              scale: 1.0 + (_controller.value * 2.0),
+              child: Opacity(
+                // Animates opacity from 1.0 down to 0.0
+                opacity: 1.0 - _controller.value,
+                child: Container(
+                  width: 6,
+                  height: 6,
+                  decoration: BoxDecoration(
+                    color: AppColors.primary.withValues(alpha: 0.7),
+                    shape: BoxShape.circle,
+                  ),
+                ),
+              ),
+            ),
+            // The Static Inner Dot
+            Container(
+              width: 9,
+              height: 9,
+              decoration: const BoxDecoration(
+                color: AppColors.primary,
+                shape: BoxShape.circle,
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

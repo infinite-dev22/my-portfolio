@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:portfolio_app/core/utils/responsive_text.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -47,7 +48,7 @@ class SkillsSection extends StatelessWidget {
               color: AppColors.primary, // Blue
             ),
             const SizedBox(height: 60),
-            _buildStrategyColumn(),
+            _buildStrategyColumn(context),
           ],
         ),
         desktop: Row(
@@ -71,14 +72,14 @@ class SkillsSection extends StatelessWidget {
               ),
             ),
             const SizedBox(width: 80),
-            Expanded(child: _buildStrategyColumn()),
+            Expanded(child: _buildStrategyColumn(context)),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildStrategyColumn() {
+  Widget _buildStrategyColumn(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -110,7 +111,7 @@ class SkillsSection extends StatelessWidget {
               "Strategy & Lead",
               style: GoogleFonts.jetBrainsMono(
                 color: Colors.white,
-                fontSize: 18,
+                fontSize: context.textMediumLarge,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -221,7 +222,7 @@ class _SkillCategoryColumn extends StatelessWidget {
                       skill.purpose, // Or some other detail if needed
                       style: GoogleFonts.jetBrainsMono(
                         color: color,
-                        fontSize: 10,
+                        fontSize: context.textSmall,
                       ),
                     ),
                   ],
@@ -252,7 +253,6 @@ class _StrategyCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.all(16),
       decoration: ShapeDecoration(
         color: AppColors.skillsCard,
         shape: RoundedSuperellipseBorder(
@@ -263,14 +263,14 @@ class _StrategyCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(icon, color: Colors.white70, size: 48),
+          Icon(icon, color: Colors.white70, size: ResponsiveLayout.isMobile(context)? 48 : ResponsiveLayout.isTablet(context)? 56 : 48),
           const SizedBox(height: 12),
           Text(
             label,
             textAlign: TextAlign.center,
             style: GoogleFonts.jetBrainsMono(
               color: Colors.white70,
-              fontSize: 12,
+              fontSize: context.textXxsmall,
               fontWeight: FontWeight.bold,
               letterSpacing: 1.2,
             ),

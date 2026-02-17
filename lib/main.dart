@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:syntax_highlight/syntax_highlight.dart';
 
 import 'core/theme/app_theme.dart';
@@ -34,15 +33,11 @@ class MyApp extends StatelessWidget {
           create: (_) => di.sl<PortfolioBloc>()..add(GetPortfolioDataEvent()),
         ),
       ],
-      child: ResponsiveSizer(
-        builder: (context, orientation, screenType) {
-          return MaterialApp(
-            title: 'Jonathan Mark Mwigo Portfolio',
-            debugShowCheckedModeBanner: false,
-            theme: AppTheme.darkTheme,
-            home: PortfolioPage(codeHighlighter: _javaDarkHighlighter),
-          );
-        },
+      child: MaterialApp(
+        title: 'Jonathan Mark Mwigo Portfolio',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.darkTheme,
+        home: PortfolioPage(codeHighlighter: _javaDarkHighlighter),
       ),
     );
   }

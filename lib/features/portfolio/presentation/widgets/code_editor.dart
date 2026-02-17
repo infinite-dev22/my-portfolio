@@ -21,6 +21,13 @@ class PortfolioCodeEditor extends StatelessWidget {
         borderRadius: BorderRadius.circular(16),
         border: Border.all(color: Colors.white10),
         color: Colors.transparent,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.5),
+            blurRadius: 20,
+            offset: const Offset(0, 10),
+          ),
+        ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,7 +74,7 @@ class PortfolioCodeEditor extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.editorTitle,
-                    fontSize: context.responsiveBodySmall,
+                    fontSize: context.textSmall,
                   ),
                 ),
               ],
@@ -75,7 +82,8 @@ class PortfolioCodeEditor extends StatelessWidget {
           ),
           // Terminal Content
           Container(
-            padding: const EdgeInsets.all(32),
+            width: double.infinity,
+            padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(16),
@@ -84,7 +92,10 @@ class PortfolioCodeEditor extends StatelessWidget {
               border: Border.all(color: Colors.white10),
               color: AppColors.editorBody,
             ),
-            child: Expanded(child: Row(children: [child])),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Row(children: [child]),
+            ),
           ),
         ],
       ),

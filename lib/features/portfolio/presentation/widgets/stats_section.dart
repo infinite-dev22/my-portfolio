@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_app/core/utils/responsive_text.dart';
 import '../../domain/entities/portfolio_entities.dart';
 import '../../../../core/utils/responsive.dart';
 import '../../../../core/theme/app_colors.dart';
@@ -65,7 +66,7 @@ class _StatCard extends StatelessWidget {
             stat.value,
             style: GoogleFonts.jetBrainsMono(
               color: Colors.white,
-              fontSize: 56,
+              fontSize: context.textStat,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -75,7 +76,7 @@ class _StatCard extends StatelessWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.jetBrainsMono(
               color: Colors.white54,
-              fontSize: 18,
+              fontSize: context.textSmall,
               letterSpacing: 2.0,
               fontWeight: FontWeight.w200,
             ),
@@ -86,7 +87,7 @@ class _StatCard extends StatelessWidget {
             textAlign: TextAlign.center,
             style: GoogleFonts.jetBrainsMono(
               color: stat.descriptionColor,
-              fontSize: 12,
+              fontSize: context.textXxsmall,
               letterSpacing: 1.2,
               fontWeight: FontWeight.w400,
             ),

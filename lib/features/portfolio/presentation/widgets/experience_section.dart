@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:icons_plus/icons_plus.dart';
+import 'package:portfolio_app/core/utils/responsive_text.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/theme/app_colors.dart';
@@ -31,7 +32,7 @@ class ExperienceSection extends StatelessWidget {
                 style: GoogleFonts.jetBrainsMono(
                   color: Colors.white,
                   fontWeight: .bold,
-                  fontSize: ResponsiveLayout.isMobile(context) ? 24 : 32,
+                  fontSize: context.textLarge,
                 ),
               ),
               SizedBox(
@@ -145,11 +146,7 @@ class PhilosophyCard extends StatelessWidget {
                         "LEADERSHIP PHILOSOPHY",
                         style: GoogleFonts.jetBrainsMono(
                           color: Colors.white54,
-                          fontSize: ResponsiveLayout.isMobile(context)
-                              ? 12
-                              : ResponsiveLayout.isTablet(context)
-                              ? 16
-                              : 12.sp,
+                          fontSize: context.textXsmall,
                           letterSpacing: 2.0,
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.italic,
@@ -161,11 +158,7 @@ class PhilosophyCard extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: GoogleFonts.jetBrainsMono(
                           color: Colors.white,
-                          fontSize: ResponsiveLayout.isMobile(context)
-                              ? 20
-                              : ResponsiveLayout.isTablet(context)
-                              ? 38
-                              : 18.sp,
+                          fontSize: context.textLarge,
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
                           height: 1.2,
@@ -235,7 +228,7 @@ class _CurrentExperienceCardState extends State<_CurrentExperienceCard> {
                             "Hyde Innovations",
                             style: GoogleFonts.jetBrainsMono(
                               color: Colors.white,
-                              fontSize: 20,
+                              fontSize: context.textMedium,
                               fontWeight: .bold,
                             ),
                           ),
@@ -244,6 +237,7 @@ class _CurrentExperienceCardState extends State<_CurrentExperienceCard> {
                           "2024 - PRESENT",
                           style: GoogleFonts.jetBrainsMono(
                             color: AppColors.textSecondary,
+                            fontSize: context.textXsmall,
                           ),
                         ),
                       ],
@@ -252,6 +246,7 @@ class _CurrentExperienceCardState extends State<_CurrentExperienceCard> {
                       "Senior Lead Mobile & Backend",
                       style: GoogleFonts.jetBrainsMono(
                         color: AppColors.primary,
+                        fontSize: context.textRegular,
                         fontWeight: .w500,
                       ),
                     ),
@@ -398,7 +393,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                   "Infosec Technologies",
                   style: GoogleFonts.jetBrainsMono(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: context.textMedium,
                     fontWeight: .bold,
                   ),
                 ),
@@ -406,6 +401,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                   "Lead Developer",
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.secondary,
+                    fontSize: context.textRegular,
                     fontWeight: .w500,
                   ),
                 ),
@@ -413,6 +409,7 @@ class _PreviousExperienceCardState extends State<_PreviousExperienceCard> {
                   "2024 - 2024",
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.textSecondary,
+                    fontSize: context.textXsmall,
                   ),
                 ),
               ],
@@ -539,7 +536,7 @@ class _OldExperienceCardState extends State<OldExperienceCard> {
                   "Netify IT",
                   style: GoogleFonts.jetBrainsMono(
                     color: Colors.white,
-                    fontSize: 20,
+                    fontSize: context.textMedium,
                     fontWeight: .bold,
                   ),
                 ),
@@ -547,6 +544,7 @@ class _OldExperienceCardState extends State<OldExperienceCard> {
                   "Mobile Application Consultant and Lead",
                   style: GoogleFonts.jetBrainsMono(
                     color: AppColors.primary,
+                    fontSize: context.textRegular,
                     fontWeight: .w500,
                   ),
                 ),

@@ -30,21 +30,19 @@ class PortfolioPage extends StatelessWidget {
               state.portfolioData != null) {
             final data = state.portfolioData!;
             return SingleChildScrollView(
-              child: RepaintBoundary(
-                child: Column(
-                  children: [
-                    const NavBar(),
-                    HeroSection(
-                      profile: data.profile,
-                      highlighter: codeHighlighter,
-                    ),
-                    const WhoIsJonathanSection(), // Inserted WhoIsJonathanSection
-                    ExperienceSection(experiences: data.experiences),
-                    SkillsSection(skills: data.skills),
-                    StatsSection(stats: data.stats),
-                    const FooterSection(),
-                  ],
-                ),
+              child: Column(
+                children: [
+                  const NavBar(),
+                  HeroSection(
+                    profile: data.profile,
+                    highlighter: codeHighlighter,
+                  ),
+                  const WhoIsJonathanSection(), // Inserted WhoIsJonathanSection
+                  ExperienceSection(experiences: data.experiences),
+                  SkillsSection(skills: data.skills),
+                  StatsSection(stats: data.stats),
+                  const FooterSection(),
+                ],
               ),
             );
           }
