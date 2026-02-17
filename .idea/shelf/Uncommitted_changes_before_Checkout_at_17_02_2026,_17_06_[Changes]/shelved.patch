@@ -1,0 +1,80 @@
+Index: manifest.json
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>{\n    \"name\": \"portfolio_app\",\n    \"short_name\": \"portfolio_app\",\n    \"start_url\": \".\",\n    \"display\": \"standalone\",\n    \"background_color\": \"#0175C2\",\n    \"theme_color\": \"#0175C2\",\n    \"description\": \"A new Flutter project.\",\n    \"orientation\": \"portrait-primary\",\n    \"prefer_related_applications\": false,\n    \"icons\": [\n        {\n            \"src\": \"icons/Icon-192.png\",\n            \"sizes\": \"192x192\",\n            \"type\": \"image/png\"\n        },\n        {\n            \"src\": \"icons/Icon-512.png\",\n            \"sizes\": \"512x512\",\n            \"type\": \"image/png\"\n        },\n        {\n            \"src\": \"icons/Icon-maskable-192.png\",\n            \"sizes\": \"192x192\",\n            \"type\": \"image/png\",\n            \"purpose\": \"maskable\"\n        },\n        {\n            \"src\": \"icons/Icon-maskable-512.png\",\n            \"sizes\": \"512x512\",\n            \"type\": \"image/png\",\n            \"purpose\": \"maskable\"\n        }\n    ]\n}\n
+===================================================================
+diff --git a/manifest.json b/manifest.json
+--- a/manifest.json	(revision 8d0a357916436899b3bf125de868d5b47f1061d3)
++++ b/manifest.json	(date 1771337085385)
+@@ -1,35 +1,35 @@
+ {
+-    "name": "portfolio_app",
+-    "short_name": "portfolio_app",
+-    "start_url": ".",
+-    "display": "standalone",
+-    "background_color": "#0175C2",
+-    "theme_color": "#0175C2",
+-    "description": "A new Flutter project.",
+-    "orientation": "portrait-primary",
+-    "prefer_related_applications": false,
+-    "icons": [
+-        {
+-            "src": "icons/Icon-192.png",
+-            "sizes": "192x192",
+-            "type": "image/png"
+-        },
+-        {
+-            "src": "icons/Icon-512.png",
+-            "sizes": "512x512",
+-            "type": "image/png"
+-        },
+-        {
+-            "src": "icons/Icon-maskable-192.png",
+-            "sizes": "192x192",
+-            "type": "image/png",
+-            "purpose": "maskable"
+-        },
+-        {
+-            "src": "icons/Icon-maskable-512.png",
+-            "sizes": "512x512",
+-            "type": "image/png",
+-            "purpose": "maskable"
+-        }
+-    ]
++  "name": "JMM P",
++  "short_name": "JMM P",
++  "start_url": ".",
++  "display": "standalone",
++  "background_color": "#0175C2",
++  "theme_color": "#0175C2",
++  "description": "A new Flutter project.",
++  "orientation": "portrait-primary",
++  "prefer_related_applications": false,
++  "icons": [
++    {
++      "src": "icons/Icon-192.png",
++      "sizes": "192x192",
++      "type": "image/png"
++    },
++    {
++      "src": "icons/Icon-512.png",
++      "sizes": "512x512",
++      "type": "image/png"
++    },
++    {
++      "src": "icons/Icon-maskable-192.png",
++      "sizes": "192x192",
++      "type": "image/png",
++      "purpose": "maskable"
++    },
++    {
++      "src": "icons/Icon-maskable-512.png",
++      "sizes": "512x512",
++      "type": "image/png",
++      "purpose": "maskable"
++    }
++  ]
+ }
+diff --git a/assets/assets/favicon.svg b/favicon.svg
+rename from assets/assets/favicon.svg
+rename to favicon.svg
