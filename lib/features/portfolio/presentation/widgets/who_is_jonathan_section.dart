@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:portfolio_app/core/utils/responsive_text.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../core/theme/app_colors.dart';
 import '../../../../core/utils/responsive.dart';
@@ -94,7 +96,11 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                           textAlign: TextAlign.center,
                           style: GoogleFonts.jetBrainsMono(
                             color: AppColors.terminalTitle,
-                            fontSize: 12,
+                            fontSize: ResponsiveLayout.isMobile(context)
+                                ? 7.sp
+                                : ResponsiveLayout.isTablet(context)
+                                ? 9.sp
+                                : 9.5.sp,
                           ),
                         ),
                         const SizedBox(width: 40), // Balance the icons
@@ -105,7 +111,11 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                       textAlign: TextAlign.center,
                       style: GoogleFonts.jetBrainsMono(
                         color: AppColors.terminalHeadActive,
-                        fontSize: 12,
+                        fontSize: ResponsiveLayout.isMobile(context)
+                            ? 7.sp
+                            : ResponsiveLayout.isTablet(context)
+                            ? 9.sp
+                            : 9.5.sp,
                         fontWeight: FontWeight.w100,
                       ),
                     ),
@@ -129,7 +139,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                     RichText(
                       text: TextSpan(
                         style: GoogleFonts.jetBrainsMono(
-                          fontSize: 14,
+                          fontSize: context.responsiveBodyMedium,
                           height: 1.6,
                           color: Colors.white,
                         ),
@@ -139,7 +149,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                             style: GoogleFonts.jetBrainsMono(
                               color: AppColors.secondary,
                               fontWeight: FontWeight.bold,
-                              fontSize: 18,
+                              fontSize: context.responsiveBodyLarge,
                             ),
                           ),
                           TextSpan(
@@ -209,7 +219,7 @@ class _WhoIsJonathanSectionState extends State<WhoIsJonathanSection>
                           style: GoogleFonts.jetBrainsMono(
                             color: AppColors.secondary,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: context.responsiveBodyLarge,
                           ),
                         ),
                         RepaintBoundary(
